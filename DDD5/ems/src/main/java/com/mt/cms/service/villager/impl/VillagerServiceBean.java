@@ -106,7 +106,6 @@ public class VillagerServiceBean extends BaseService implements VillagerService 
 	 */
 	@Override
 	public Villager findVillagersWithIdNameById(Long villagerId){
-		//TODO:请在此校验参数的合法性
 		this.validateFindVillagersWithIdNameById(villagerId);
 		return this.villagerDao.findVillagersWithIdNameById(villagerId);
 	}

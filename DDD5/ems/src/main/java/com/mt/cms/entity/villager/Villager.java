@@ -1,12 +1,15 @@
 package com.mt.cms.entity.villager;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import com.mt.common.core.annotation.DColumn;
 import com.mt.common.core.annotation.DEntity;
 import com.mt.common.core.web.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import java.io.Serializable;
 
 
 
@@ -18,6 +21,10 @@ import io.swagger.annotations.ApiModelProperty;
 public class Villager extends BaseEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 
+	@DColumn(index=2,label="姓名",comment="姓名",component="文本",where=false)
+	@ApiModelProperty(value = "姓名:村名的姓名")
+	@Column(name="name",length=255,nullable=false,unique=false)
+	private String name;
 	@DColumn(index=3,label="年龄",comment="年龄",component="数字，整数",where=false)
 	@ApiModelProperty(value = "年龄:年龄")
 	@Column(name="age",length=255,nullable=false,unique=false)
@@ -38,7 +45,14 @@ public class Villager extends BaseEntity implements Serializable{
 	@Column(name="address",length=255,nullable=true,unique=false)
 	private String address;
 
-
+	public Villager() {
+	}
+	public String getName() {
+		return this.name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public Integer getAge() {
 		return this.age;
 	}
