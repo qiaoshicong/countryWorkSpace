@@ -31,6 +31,7 @@
         <module>common</module>
         <module>generate</module>
         <module>springbootadmin</module>
+        <module>ems</module>
     </modules>
 
     <!--这里声明依赖及其版本，使用时在子pom中引入-->

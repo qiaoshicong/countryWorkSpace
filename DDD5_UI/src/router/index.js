@@ -9,6 +9,11 @@ import NProgress from 'nprogress';
 
 // 静态路由
 const routes = [
+  // {
+  //   path: '/',
+  //   component: () => import('@/views/cms/home/index'),
+  //   meta: {title: '主页'}
+  // },
   {
     path: '/login',
     component: () => import('@/views/login/login'),
