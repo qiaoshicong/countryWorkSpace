@@ -1,1 +1,179 @@
 /** 如果需要覆盖框架样式变量写在这里 */
+.ant-btn-danger {
+  color: #fff;
+  background: #ef8e35;
+  border-color: #ff9e75;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+.ant-btn-primary {
+  color: #fff;
+  background: #048260;
+  border-color: #1890ff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+.ant-tabs-tab-active:before {
+  background: #048260 ;
+}
+
+.ele-admin-tabs.ant-tabs {
+  background: #048260;
+  box-shadow: @header-light-shadow;
+  z-index: @layout-z-index;
+  position: relative;
+
+  .ant-tabs-bar {
+    margin: 0;
+    border-bottom: none;
+
+    .ant-tabs-nav-container {
+      padding: 0 @tabs-height;
+      height: auto;
+
+      .ant-tabs-tab {
+        padding: 0;
+        background: none;
+        height: @tabs-height;
+        line-height: @tabs-height;
+        transition: background .3s @ease-in-out, color .3s @ease-in-out;
+        border-radius: 0;
+        border: none;
+        margin: 0;
+
+        & > div {
+          padding: 0 28px 0 @padding-md;
+
+          &.ant-tabs-tab-unclosable {
+            padding-right: @padding-md;
+          }
+        }
+
+        .ant-tabs-close-x {
+          width: auto;
+          height: auto;
+          margin: -6px 0 0 0;
+          position: absolute;
+          right: 10px;
+          top: 50%;
+        }
+
+        &:before {
+          display: none;
+        }
+      }
+
+      .ant-tabs-tab-active {
+        background:#048260;
+      }
+
+      .ant-tabs-tab-prev,
+      .ant-tabs-tab-next {
+        transition: color .3s @ease-in-out, opacity .3s @ease-in-out;
+        width: @tabs-height;
+        pointer-events: auto;
+        line-height: 1;
+        opacity: 1;
+
+        .anticon {
+          font-size: @font-size-base;
+        }
+      }
+
+      .ant-tabs-ink-bar {
+        display: none !important;
+      }
+    }
+  }
+
+  .ant-tabs-content,
+  .ant-tabs-content + div,
+  .ant-tabs-bar + div,
+  &:before,
+  &:after {
+    display: none;
+  }
+
+  .ant-tabs-nav-container,
+  .ant-tabs-nav-wrap {
+    margin-bottom: 0;
+  }
+
+  .ele-admin-tabs-drop {
+    width: @tabs-height;
+    height: @tabs-height;
+    line-height: @tabs-height;
+    text-align: center;
+    cursor: pointer;
+
+    .anticon {
+      font-size: @font-size-base;
+    }
+  }
+}
+// 侧边栏彩色图标
+.ele-admin-side-colorful {
+  .ele-admin-sidebar > .ele-admin-sidebar-menus > .ant-menu > li {
+    & > a > .anticon,
+    & > .ant-menu-submenu-title > .anticon {
+      color: @menu-dark-selected-item-text-color;
+      background: #048260;
+      width: @sidebar-colorful-icon-width;
+      height: @sidebar-colorful-icon-width;
+      line-height: (@sidebar-colorful-icon-width + 4px);
+      font-size: @sidebar-colorful-icon-size;
+      vertical-align: -0.05em;
+      border-radius: 50%;
+      text-align: center;
+    }
+
+    &:nth-child(even) {
+      & > a > .anticon,
+      & > .ant-menu-submenu-title > .anticon {
+        background: #7dd733;
+      }
+    }
+
+    &:nth-child(3) {
+      & > a > .anticon,
+      & > .ant-menu-submenu-title > .anticon {
+        background: #32a2d4;
+      }
+    }
+
+    &:nth-child(4) {
+      & > a > .anticon,
+      & > .ant-menu-submenu-title > .anticon {
+        background: #7383cf;
+      }
+    }
+
+    &:nth-child(5) {
+      & > a > .anticon,
+      & > .ant-menu-submenu-title > .anticon {
+        background: #F5686F;
+      }
+    }
+
+    &:nth-child(6) {
+      & > a > .anticon,
+      & > .ant-menu-submenu-title > .anticon {
+        background: #2bccce;
+      }
+    }
+
+    &:nth-child(7) {
+      & > a > .anticon,
+      & > .ant-menu-submenu-title > .anticon {
+        background: #7dd733;
+      }
+    }
+
+    &:nth-child(8) {
+      & > a > .anticon,
+      & > .ant-menu-submenu-title > .anticon {
+        background: #FAAD14;
+      }
+    }
+  }
+}

@@ -6,12 +6,10 @@
         <template #form>
           <a-form
             :model="where"
-            :label-col="{md: {span: 4}, sm: {span: 24}}"
-            :wrapper-col="{md: {span: 10}, sm: {span: 24}}">
+            :label-col="{md: {span: 6}, sm: {span: 24}}"
+            :wrapper-col="{md: {span: 12}, sm: {span: 20}}">
             <a-row>
-
-              <a-col :lg="6" :md="12" :sm="24"
-                     :xs="24" :offset="4">
+              <a-col :md="8" >
                 <a-form-item label="姓名:" name="name">
                   <a-input
                     v-model:value="where.name"
@@ -19,12 +17,10 @@
                     placeholder="请输入发布者姓名"
                     allow-clear
                     class="ele-fluid"
-
                   />
                 </a-form-item>
               </a-col>
-              <a-col :lg="8" :md="16" :sm="24"
-                     :xs="32">
+              <a-col :md="8" :sm="24">
                 <a-form-item label="联系电话:" name="phone">
                   <a-input
                     v-model:value="where.phone"
@@ -36,8 +32,22 @@
                 </a-form-item>
               </a-col>
 
-              <a-col :lg="8" :md="16" :sm="24"
-                     :xs="32">
+
+                <a-col >
+                  <a-form-item class="ele-text-right" :wrapper-col="{span: 24}">
+                    <a-space>
+                      <!--                    <button  @click="reload"> 查询-->
+                      <!--                    </button>-->
+                      <a-button type="primary" @click="reload">查询</a-button>
+                      <a-button @click="reset">重置</a-button>
+
+                    </a-space>
+                  </a-form-item>
+                </a-col>
+
+            </a-row>
+            <a-row>
+              <a-col :md="8" >
                 <a-form-item label="地址:" name="address">
                   <a-input
                     v-model:value="where.address"
@@ -48,9 +58,7 @@
                   />
                 </a-form-item>
               </a-col>
-
-              <a-col :lg="6" :md="12" :sm="24"
-                     :xs="24">
+              <a-col :md="8" :sm="24">
                 <a-form-item label="新闻条数:" name="count">
                   <a-input-number
                     v-model:value="where.count"
@@ -61,20 +69,65 @@
                   </a-input-number>
                 </a-form-item>
               </a-col>
-
-              <a-col :lg="6" :md="12" :sm="24" :xs="24">
-                <a-form-item class="ele-text-right" :wrapper-col="{span: 24}">
-                  <a-space>
-<!--                    <button  @click="reload"> 查询-->
-<!--                    </button>-->
-                    <a-button type="primary" @click="reload">查询</a-button>
-                    <a-button @click="reset">重置</a-button>
-
-                  </a-space>
-                </a-form-item>
-              </a-col>
             </a-row>
+<!--            <a-row>-->
+
+<!--              <a-col :lg="8" :md="16" :sm="24"-->
+<!--                     :xs="32" >-->
+<!--                <a-form-item label="姓名:" name="name">-->
+<!--                  <a-input-->
+<!--                    v-model:value="where.name"-->
+<!--                    :maxlength="255"-->
+<!--                    placeholder="请输入发布者姓名"-->
+<!--                    allow-clear-->
+<!--                    class="ele-fluid"-->
+
+<!--                  />-->
+<!--                </a-form-item>-->
+<!--              </a-col>-->
+<!--              <a-col :lg="8" :md="16" :sm="24"-->
+<!--                     :xs="32">-->
+<!--                <a-form-item label="联系电话:" name="phone">-->
+<!--                  <a-input-->
+<!--                    v-model:value="where.phone"-->
+<!--                    :maxlength="255"-->
+<!--                    placeholder="请输入联系电话"-->
+<!--                    allow-clear-->
+<!--                    class="ele-fluid"-->
+<!--                  />-->
+<!--                </a-form-item>-->
+<!--              </a-col>-->
+<!--            </a-row >-->
+<!--              <a-row >-->
+<!--              <a-col :lg="8" :md="16" :sm="24"-->
+<!--                     :xs="32" :offset="4">-->
+<!--                <a-form-item label="地址:" name="address">-->
+<!--                  <a-input-->
+<!--                    v-model:value="where.address"-->
+<!--                    :maxlength="255"-->
+<!--                    placeholder="请输入地址"-->
+<!--                    allow-clear-->
+<!--                    class="ele-fluid"-->
+<!--                  />-->
+<!--                </a-form-item>-->
+<!--              </a-col>-->
+
+<!--              <a-col :lg="6" :md="12" :sm="24"-->
+<!--                     :xs="24">-->
+<!--                <a-form-item label="新闻条数:" name="count">-->
+<!--                  <a-input-number-->
+<!--                    v-model:value="where.count"-->
+<!--                    placeholder="请输入新闻条数"-->
+<!--                    :min="0"-->
+<!--                    :step="1"-->
+<!--                    class="ele-fluid">-->
+<!--                  </a-input-number>-->
+<!--                </a-form-item>-->
+<!--              </a-col>-->
+
           </a-form>
+
+
         </template>
         <!--自定义按钮-->
         <template #bottom>
@@ -138,7 +191,7 @@
       <vxe-modal v-model="publisherListApp.editModalShowing" ref="publisherEditModal"
                  :title="gridOptions.showEditTitle"
                  id="publisherEditModal"
-                 width="800" height="400" min-width="460" min-height="320" :lock-view="false" :mask="false"
+                 width="800" height="400" min-width="400" min-height="320" :lock-view="false" :mask="false"
                  show-footer show-zoom resize remember storage transfer dblclickZoom
                  :destroy-on-close="true"
       >
@@ -158,9 +211,9 @@
       <!--查看弹窗-->
       <vxe-modal v-model="publisherListApp.viewModalShowing" :title="gridOptions.showDetailsTitle"
                  id="publisherViewModal"
-                 width="600"
-                 min-width="460"
-                 min-height="320"
+                 width="400"
+                 min-width="400"
+                 min-height="500"
                  :destroy-on-close="true"
                  :lock-view="false" :mask="false"
                  footer
