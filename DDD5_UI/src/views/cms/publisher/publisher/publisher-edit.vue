@@ -6,23 +6,23 @@
         ref="form2"
         :model="publisherModalApp.publisher"
         :rules="publisherModalApp.rules"
-        :label-col="{md: {span: 7}, sm: {span: 20}}"
-        :wrapper-col="{md: {span: 17}, sm: {span: 20}}">
-        <a-row >
-          <a-col :md="6">
-            <a-form-item label="姓名:" name="name">
-              <a-input
-                v-model:value="publisherModalApp.publisher.name"
-                placeholder="请输入姓名"
-                :maxlength="255"
-                allow-clear
-              />
-            </a-form-item>
+        :label-col="{md: {span: 7}, sm: {span: 24}}"
+        :wrapper-col="{md: {span: 17}, sm: {span: 24}}">
+        <a-row :gutter="16">
+
+          <a-col :lg="6" :md="12" :sm="24" :xs="24">
+            <a-form-item label="姓名:" name="name" :rules="{ required: true }">
+                            <a-input
+                              v-model:value="publisherModalApp.publisher.name"
+                              placeholder="请输入姓名"
+                              :maxlength="255"
+                              allow-clear
+                            />
+                          </a-form-item>
           </a-col>
 
-
-          <a-col :md="6">
-            <a-form-item label="联系电话:" name="phone">
+          <a-col :md="8">
+            <a-form-item label="联系电话:" name="phone" :rules="{ required: true, pattern: /^1[3-9]\d{9}$/,message:'手机格式不正确'  }">
               <a-input
                 v-model:value="publisherModalApp.publisher.phone"
                 placeholder="请输入联系电话"
@@ -31,8 +31,7 @@
               />
             </a-form-item>
           </a-col>
-        </a-row>
-        <a-row>
+
           <a-col :md="6">
             <a-form-item label="地址:" name="address">
               <a-input
@@ -44,7 +43,7 @@
             </a-form-item>
           </a-col>
 
-          <a-col :lg="6" :md="12" :sm="24" :xs="24">
+          <a-col :lg="8" :md="12" :sm="24" :xs="24">
             <a-form-item label="新闻条数:" name="count">
               <a-input-number
                 v-model:value="publisherModalApp.publisher.count"
@@ -55,8 +54,7 @@
               ></a-input-number>
             </a-form-item>
           </a-col>
-        </a-row>
-        <a-row>
+
           <a-col :md="12" :sm="24" :xs="24">
             <a-form-item :wrapper-col="{md: {offset: 6}}" style="margin-bottom: -20px">
               <!--class="ele-pull-right"-->
@@ -204,7 +202,7 @@ export default defineComponent({
         PublisherService.savePublisher(data).then((res) => {
           console.log(res);
           VXETable.modal.message({content: '操作成功', status: 'success'});
-          setTimeout(onBack, 3000);
+          setTimeout(onBack, 1000);
         }).catch(error => {
           VXETable.modal.message({content: `系统错误，原因是：${error.message}`, status: 'error'});
         })
@@ -219,6 +217,8 @@ export default defineComponent({
     /*TODO:返回列表*/
     const onBack = () => {
       router.push(`/cms/publisher/publisher`);
+      publisherListApp.editModalShowing=false;
+      publisherListApp.tableRefresh();
       store.dispatch('user/tabRemove', route.fullPath);
 
     }

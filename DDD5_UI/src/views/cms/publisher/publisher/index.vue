@@ -133,8 +133,8 @@
         <template #bottom>
           <div>
             <br/>
-            <a-alert message="Informational Notes" type="info"
-                     description="Detailed description and advices about successful copywriting."
+            <a-alert message="易村行" type="info"
+                     description="与时俱进，共创新价值，共建新农村。"
                      show-icon/>
             <br/>
           </div>
@@ -266,7 +266,10 @@ export default defineComponent({
       editModalShowing: false,
       viewModalShowing: false,
       editModalForEdit: false,
-      addModalForEdit: false
+      addModalForEdit: false,
+      tableRefresh: function (){
+        reload()
+      }
     })
     const gridOptions = reactive({
       border: true,
