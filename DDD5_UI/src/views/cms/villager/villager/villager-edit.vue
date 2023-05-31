@@ -22,7 +22,7 @@
           </a-col>
 
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
-            <a-form-item label="年龄:" name="age">
+            <a-form-item label="年龄:" name="age" :rules="{ required: false }">
               <a-input-number
                 v-model:value="villagerModalApp.villager.age"
                 placeholder="请输入年龄"
@@ -34,18 +34,17 @@
           </a-col>
 
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
-            <a-form-item label="性别:" name="gender">
-              <a-input
-                v-model:value="villagerModalApp.villager.gender"
-                placeholder="请输入性别"
-                :maxlength="255"
-                allow-clear
-              />
+            <a-form-item label="性别:" name="gender" :rules="{ required: false }">
+              <a-radio-group v-model:value="villagerModalApp.villager.gender">
+                <a-radio-button value="男">男</a-radio-button>
+                <a-radio-button value="女">女</a-radio-button>
+              </a-radio-group>
             </a-form-item>
           </a-col>
-
+        </a-row>
+        <a-row :gutter="16">
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
-            <a-form-item label="手机号:" name="phoneNumber">
+            <a-form-item label="手机号:" name="phoneNumber" :rules="{ required: false, pattern: /^1[3-9]\d{9}$/,message:'手机格式不正确' }">
               <a-input
                 v-model:value="villagerModalApp.villager.phoneNumber"
                 placeholder="请输入手机号"

@@ -78,15 +78,7 @@
         <weibo-outlined class="login-oauth-icon" style="background: #CF1900;"/>
       </div>
     </a-form>
-    <div class="login-copyright">copyright © 2021 重庆茂侨科技有限责任公司 all rights reserved.</div>
-    <!-- 实际项目去掉这段 -->
-    <div style="position: absolute;right: 30px;top: 20px;">
-      <a-radio-group v-model:value="direction" size="small">
-        <a-radio-button :value="2">居左</a-radio-button>
-        <a-radio-button :value="0">居中</a-radio-button>
-        <a-radio-button :value="1">居右</a-radio-button>
-      </a-radio-group>
-    </div>
+    <div class="login-copyright">cqnu 软件工程 2021级 易村行</div>
   </div>
 </template>
 
@@ -261,7 +253,7 @@ export default {
   padding: 48px 16px 0 16px;
   position: relative;
   box-sizing: border-box;
-  background-image: url("~@/assets/bg-login.jpg");
+  background-image: url("~@/assets/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
