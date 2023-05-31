@@ -6,14 +6,19 @@ import store from "@/store";
 import setting from '@/config/setting';
 
 import NProgress from 'nprogress';
+import city from '@/views/cms/home/city'
+import help from '@/views/cms/home/help'
+import tour from '@/views/cms/home/tour'
+import education from '@/views/cms/home/education'
+import First from '@/views/cms/home/First'
+import news from '@/views/cms/home/news'
 
 // 静态路由
 const routes = [
-  // {
-  //   path: '/',
-  //   component: () => import('@/views/cms/home/index'),
-  //   meta: {title: '主页'}
-  // },
+  {
+    path: '/',redirect:'/index'
+
+  },
   {
     path: '/login',
     component: () => import('@/views/login/login'),
@@ -33,6 +38,35 @@ const routes = [
   {
     path: '/:pathMatch(.*)*',
     component: () => import('@/views/exception/404')
+  },
+  {
+    path: '/news',
+    component:() => import('@/views/cms/home/news')
+
+  },
+  {
+    path: '/index',
+    component: () => import('@/views/cms/home/index'),
+    children:[{
+      path: 'city',
+      component:city
+    },{
+      path: 'help',
+      component:help
+    },{
+      path: 'education',
+      component:education
+    },{
+      path: 'tour',
+      component:tour
+    },{
+      path: 'first',
+      component: First
+    },{
+      path: 'news',
+      component: news
+    }
+    ]
   }
 ];
 
