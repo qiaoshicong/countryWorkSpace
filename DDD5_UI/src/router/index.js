@@ -12,11 +12,11 @@ import tour from '@/views/cms/home/tour'
 import education from '@/views/cms/home/education'
 import First from '@/views/cms/home/First'
 import news from '@/views/cms/home/news'
-
+import welcome from '@/views/cms/home/welcome'
 // 静态路由
 const routes = [
   {
-    path: '/',redirect:'/index'
+    path: '/',redirect:'/index/welcome'
 
   },
   {
@@ -65,6 +65,9 @@ const routes = [
     },{
       path: 'news',
       component: news
+    },{
+      path: 'welcome',
+      component: welcome
     }
     ]
   }

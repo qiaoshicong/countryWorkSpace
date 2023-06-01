@@ -25,7 +25,7 @@ function isElectron() {
 
 export default {
   // 路由白名单(不需要登录的)
-  whiteList: ['/login', '/forget','/decache','/index','/index/First','/index/city'],
+  whiteList: ['/login', '/forget','/decache','/index','/index/welcome'],
   // 不显示全局页脚的路由地址
   hideFooters: ['/system/dictionary', '/system/organization'],
   // 不显示侧边栏的路由地址
