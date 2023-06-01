@@ -1,18 +1,18 @@
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="280" height="280" viewBox="-18.75 0 280 280">
     <defs xmlns="http://www.w3.org/2000/svg">
         <linearGradient x1="60%" y1="0%" x2="50%" y2="120%" id="linearGradient-1">
-            <stop stop-color="#29CDFF" offset="0%"/>
-            <stop stop-color="#148EFF" offset="60%"/>
-            <stop stop-color="#0A60FF" offset="100%"/>
+            <stop stop-color="#ADF3B3" offset="0%"/>
+            <stop stop-color="#2BE0F3" offset="60%"/>
+            <stop stop-color="#C3F325" offset="100%"/>
         </linearGradient>
         <linearGradient x1="20%" y1="0%" x2="100%" y2="80%" id="linearGradient-2">
-            <stop stop-color="#4285EB" offset="0%"/>
-            <stop stop-color="#2EC7FF" offset="100%"/>
+            <stop stop-color="#D5F345" offset="0%"/>
+            <stop stop-color="#D2F3B2" offset="80%"/>
         </linearGradient>
         <linearGradient x1="120%" y1="60%" x2="20%" y2="40%" id="linearGradient-3">
-            <stop stop-color="#FA816E" offset="0%"/>
-            <stop stop-color="#F74A5C" offset="60%"/>
-            <stop stop-color="#F51D2C" offset="100%"/>
+            <stop stop-color="#F3E17E" offset="0%"/>
+            <stop stop-color="#F3DA8A" offset="60%"/>
+            <stop stop-color="#F3CA66" offset="100%"/>
         </linearGradient>
     </defs>
     <path d="M173.2050808 170 L121.2435565 200 L69.2820323 170 L69.2820323 110 L121.2435565 80 L155.8845727 100 L103.9230485 130 L103.9230485 150 L121.2435565 160 L173.2050808 130 Z"

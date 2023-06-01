@@ -75,7 +75,7 @@
         </a-button>
       </a-form-item>
     </a-form>
-    <div class="login-copyright">copyright © 2021 重庆茂侨科技有限责任公司 all rights reserved.</div>
+    <div class="login-copyright">cqnu 软件工程 2021级 易村行</div>
   </div>
   <!-- 编辑弹窗 -->
   <a-modal
@@ -256,7 +256,7 @@ export default {
   padding: 48px 16px 0 16px;
   position: relative;
   box-sizing: border-box;
-  background-image: url("~@/assets/bg-login.jpg");
+  background-image: url("~@/assets/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
