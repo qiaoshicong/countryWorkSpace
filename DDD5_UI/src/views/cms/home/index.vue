@@ -31,7 +31,8 @@
         <router-view class='box'></router-view>
       </el-main>
     </el-container>
-    <el-footer>@</el-footer>
+
+    <el-footer></el-footer>
   </el-container>
 
 
@@ -41,7 +42,7 @@
 
 
 import {notification} from "ant-design-vue";
-import {defineComponent} from "vue";
+import {defineComponent, reactive} from "vue";
 import {useRouter} from "vue-router";
 
 export default defineComponent({
@@ -55,12 +56,17 @@ export default defineComponent({
         { name: '城乡规划', id: 2 },
         { name: '帮扶政策', id: 3 },
         { name: '乡村教育', id: 4 },
-        { name: '乡村旅游', id: 5 }
+        { name: '乡村旅游', id: 5 },
+        {name:'',id:6}
       ],
-      menuList2: []
+      menuList2: [],
+
     }},
   setup() {
     const router = useRouter();
+    const loginbtn = reactive({
+      flag:true
+    });
     const openNotification = () => {
       notification.open({
         message: 'Notification Title',
@@ -128,17 +134,38 @@ export default defineComponent({
           }
 
         })
+      }else if (key===6){
+        router.push({
+          path: '/index/tour',
+          query: {
+            msg: 'tour'
+          }
+
+        })
       }
       console.log(key)
 
      }
+
+     const disappear =() =>{
+      loginbtn.flag = false
+       router.push({
+         path: '/index/tour',
+         query: {
+           msg: 'tour'
+         }
+       })
+     }
+
 // router.push('/'+formatterTitle(key))
 //     }
 
       return {
         openNotification,
         formatterTitle,
-        handleSelect
+        handleSelect,
+        disappear,
+        loginbtn
       };
     }
   })
