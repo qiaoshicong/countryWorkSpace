@@ -180,6 +180,7 @@ export default {
               remember: this.form.remember
             }).then(() => {
               //this.goHome();
+             console.log( res.data.data().userType);
               this.getUserInfo();
             });
           } else {

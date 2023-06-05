@@ -28,7 +28,7 @@
     <el-container>
       <!-- 更变的内容区域 -->
       <el-main class='main'>
-        <router-view class='box'></router-view>
+        <router-view></router-view>
       </el-main>
     </el-container>
 
@@ -220,10 +220,10 @@ export default defineComponent({
   padding-left: 35vh;
   background-color: #ed8d36;
 }
-.box {
-  width: 1200px;
-  margin: 0 auto;
-}
+/*.box {*/
+/*  width: 1200px;*/
+/*  margin: 0 auto;*/
+/*}*/
 .menu{
   background-color: red;
   text-decoration-color: white;
