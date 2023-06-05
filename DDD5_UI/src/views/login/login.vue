@@ -163,6 +163,8 @@ export default {
           this.loading = false;
           if (res.data.code === 0) {
             this.$message.success('登录成功');
+            // console.log("usertype===>" + res.data.type);
+
             this.$store.dispatch('user/setToken', {
               token: res.data.access_token,
               remember: this.form.remember
@@ -194,7 +196,9 @@ export default {
     getUserInfo() {
       console.log(process.env.VUE_APP_BASE_URL)
       console.log(process.env.VUE_SOCKET_BASE_URL)
+      // console.log()
       store.dispatch('user/getUser').then(() => {
+
         this.goHome();
 
         this.showContent = true;
@@ -221,7 +225,7 @@ export default {
     /* 跳转到首页 */
     goHome() {
       const query = this.$route.query;
-      const path = query && query.from ? query.from : '/dashboard/workplace';
+      const path = query && query.from ? query.from : '/cms/HomePage';
       this.$router.push(path).catch(() => {
       });
     },
