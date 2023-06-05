@@ -25,6 +25,11 @@ const routes = [
     meta: {title: '登录'}
   },
   {
+    path: '/register',
+    component:()=>import('@/views/login/register'),
+    meta: {title: '注册'}
+  },
+  {
     path: '/forget',
     component: () => import('@/views/login/forget'),
     meta: {title: '忘记密码'}

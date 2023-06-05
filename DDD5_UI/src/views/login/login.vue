@@ -71,6 +71,16 @@
           @click="doSubmit">
           {{ loading ? '登录中' : '登录' }}
         </a-button>
+        <a-button
+          block
+          size="large"
+          type="primary"
+          class="registerButton">
+          <router-link
+            to="/register"
+            style="line-height: 22px;">注册
+          </router-link>
+        </a-button>
       </a-form-item>
       <div class="ele-text-center" style="padding-bottom: 32px;">
         <qq-outlined class="login-oauth-icon" style="background: #3492ed;"/>
@@ -200,23 +210,6 @@ export default {
         this.showContent = true;
       })
 
-      // this.$http.get(setting.userUrl).then((res) => {
-      //   const result = setting.parseUser ? setting.parseUser(res.data) : res.data;
-      //
-      //   if (result.code === 0) {
-      //     const user = result.data;
-      //     setting.loginUser(user);
-      //     this.goHome();
-      //   } else if (result.msg) {
-      //     this.$message.error(result.msg);
-      //   }
-      //   // 在用户权限信息请求完成后再渲染主体部分, 以免权限控制指令不生效
-      //   this.showContent = true;
-      // }).catch((e) => {
-      //   console.error(e);
-      //   this.showContent = true;
-      //   this.$message.error(e.message);
-      // });
     },
     /* 跳转到首页 */
     goHome() {
