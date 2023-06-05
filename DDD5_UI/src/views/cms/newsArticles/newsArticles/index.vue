@@ -66,6 +66,16 @@
               <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
                      :xs="24">
                 <a-form-item label="新闻缩略图:" name="thumbnail">
+<!--                  <img v-if="appraisingModalApp.isPicture" :src="appraisingModalApp.phone_tip_url" class="avatar"-->
+<!--                       @click="look">-->
+<!--                  <a-upload-->
+<!--                    name="file"-->
+<!--                    :multiple="false"-->
+<!--                    :action="uploadUrl"-->
+<!--                    :headers="headers"-->
+<!--                    :limit="1"-->
+<!--                    @change="handleChangeFile"-->
+<!--                  >-->
                   <a-input
                     v-model:value="where.thumbnail"
                     :maxlength="255"
@@ -82,45 +92,6 @@
                   <a-input-number
                     v-model:value="where.comment"
                     placeholder="请输入评论数"
-                    :min="0"
-                    :step="1"
-                    class="ele-fluid">
-                  </a-input-number>
-                </a-form-item>
-              </a-col>
-
-              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="浏览数:" name="view">
-                  <a-input-number
-                    v-model:value="where.view"
-                    placeholder="请输入浏览数"
-                    :min="0"
-                    :step="1"
-                    class="ele-fluid">
-                  </a-input-number>
-                </a-form-item>
-              </a-col>
-
-              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="点赞数:" name="thumb">
-                  <a-input-number
-                    v-model:value="where.thumb"
-                    placeholder="请输入点赞数"
-                    :min="0"
-                    :step="1"
-                    class="ele-fluid">
-                  </a-input-number>
-                </a-form-item>
-              </a-col>
-
-              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="收藏数:" name="collect">
-                  <a-input-number
-                    v-model:value="where.collect"
-                    placeholder="请输入收藏数"
                     :min="0"
                     :step="1"
                     class="ele-fluid">
@@ -454,8 +425,8 @@ export default defineComponent({
           sortable: true
         },
         {
-          field: 'summary',
-          title: '新闻概要',
+          field: 'publisherNameId',
+          title: '作者姓名',
           sortable: true
         },
         {
@@ -473,41 +444,22 @@ export default defineComponent({
           title: '新闻缩略图',
           sortable: true
         },
-        {
-          field: 'comment',
-          title: '评论数',
-          sortable: true
-        },
-        {
-          field: 'view',
-          title: '浏览数',
-          sortable: true
-        },
-        {
-          field: 'thumb',
-          title: '点赞数',
-          sortable: true
-        },
-        {
-          field: 'collect',
-          title: '收藏数',
-          sortable: true
-        },
-        {
-          field: 'type',
-          title: '新闻类型',
-          sortable: true
-        },
-        {
-          field: 'isTop',
-          title: '是否置顶',
-          sortable: true
-        },
-        {
-          field: 'publisherNameId',
-          title: '作者姓名',
-          sortable: true
-        },
+        // {
+        //   field: 'comment',
+        //   title: '评论数',
+        //   sortable: true
+        // },
+        // {
+        //   field: 'type',
+        //   title: '新闻类型',
+        //   sortable: true
+        // },
+        // {
+        //   field: 'isTop',
+        //   title: '是否置顶',
+        //   sortable: true
+        // },
+
         {title: '操作', width: 250, slots: {default: 'operate'}}
       ],
       /*TODO:导入配置*/

@@ -11,8 +11,8 @@
         <div class="ele-cell-content">
           <!-- 数据表格 -->
           <ele-pro-table
-            ref="table"
             row-key="id"
+            ref="table"
             :loading="loading"
             :datasource="data"
             :columns="columns"
