@@ -10,18 +10,38 @@
                     :label-col="{md: {span: 7}, sm: {span: 24}}"
                     :wrapper-col="{md: {span: 17}, sm: {span: 24}}">
                 <a-row :gutter="16">
-                                                                                                                                                                                                                                            
-                                <a-col :lg="6" :md="12" :sm="24" :xs="24">
-                                    <a-form-item label="状态:" name="status">
+
+                                <a-col :lg="10" :md="12" :sm="24" :xs="24">
+                                    <a-form-item label="新闻类别:" name="name">
                                                                                     <a-input
-                                                    v-model:value="newsCategoryModalApp.newsCategory.status"
-                                                    placeholder="请输入状态"
+                                                    v-model:value="newsCategoryModalApp.newsCategory.name"
+                                                    placeholder="请输入新闻类别"
                                                     :maxlength="255"
                                                     allow-clear
                                             />
                                                                             </a-form-item>
                                 </a-col>
-                                                                                                                                                                                                            
+                               <a-col :lg="10" :md="12" :sm="24" :xs="24">
+                                   <a-form-item label="备注:" name="remark">
+                                       <a-input
+                                            v-model:value="newsCategoryModalApp.newsCategory.remark"
+                                             placeholder="请输入备注"
+                                             :maxlength="255"
+                                              allow-clear
+                                       />
+                                 </a-form-item>
+                            </a-col>
+                            <a-col :lg="10" :md="12" :sm="24" :xs="24">
+                                  <a-form-item label="状态:" name="status">
+                                      <a-input
+                                       v-model:value="newsCategoryModalApp.newsCategory.status"
+                                       placeholder="请输入状态"
+                                       :maxlength="255"
+                                       allow-clear
+                                       />
+                                  </a-form-item>
+                            </a-col>
+
                     <a-col :md="12" :sm="24" :xs="24">
                         <a-form-item :wrapper-col="{md: {offset: 6}}" style="margin-bottom: -20px">
                             <!--class="ele-pull-right"-->
@@ -79,8 +99,8 @@
     import {useStore} from "vuex";
     import regions from 'ele-admin-pro/packages/regions.js';
 
-                                                                                                                                                            
-                                                
+
+
     export default defineComponent({
         components: {
                                                                                 },
@@ -114,7 +134,7 @@
                 } else if (!newsCategoryListApp.editModalForEdit && newsCategoryListApp.addModalForEdit) {//新增弹窗
                         newsCategoryModalApp.display = true;
                 } else {
-                        newsCategoryModalApp.title = "新增学生";
+                        newsCategoryModalApp.title = "新增新闻类别";
                 }
                 if (newsCategoryModalApp.id) findNewsCategory(newsCategoryModalApp.id);
             })
@@ -125,7 +145,7 @@
                     //TODO:为编辑准备.
                                                                                                                                                                                                                                                                                                                                                                 newsCategoryModalApp.title = "编辑学生 " + newsCategoryModalApp.newsCategory.name;
                 }).catch(error => {
-                    VXETable.modal.message({content: `查找学生出错，原因是：${error.message}`, status: 'error'});
+                    VXETable.modal.message({content: `查找新闻类别出错，原因是：${error.message}`, status: 'error'});
                 })
             }
 
