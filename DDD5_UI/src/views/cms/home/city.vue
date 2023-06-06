@@ -1,10 +1,16 @@
 <template>
-<h1>城乡规划</h1>
+<h1 class="hdtitle">城乡规划</h1>
   <div calss='box'>
     <!-- 首页上半部分 -->
-
+    <!-- 标题下图片 -->
+    <div class="head-image">
+      <div>
+        <el-image src="../assets/img/cxgh.jpg"></el-image>
+      </div>
+    </div>
     <!-- 通知公告导航条 -->
     <el-row type='flex' class='row-bg underline marb10' justify='space-between'>
+
       <span class='color'><b>通知公告</b></span>
       <span @click="goMore('通知公告')" class='liPointer'> 更多<i class='el-icon-d-arrow-right'></i> </span>
     </el-row>
@@ -22,6 +28,7 @@
         </li>
       </ul>
     </div>
+
   </div>
 </template>
 
@@ -76,9 +83,28 @@ export default defineComponent({
       toNoticeMsg
     }
   }
-})
+    // data() {
+    //   return {
+    //     src: '~@/assets/img/cxgh.jpg'
+    //   }
+    // }
+}
+)
 </script>
 
 <style scoped>
 
+.head-image{
+  height: 350px;
+  width: 1800px;
+  position: relative;
+  left: 100px;
+  background-image: url(~@/assets/img/cxgh.jpg);
+}
+.hdtitle{
+  font-size: 35px;
+  color: #f39408;
+  text-align: center;
+
+}
 </style>

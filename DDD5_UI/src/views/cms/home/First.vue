@@ -2,6 +2,12 @@
 <h1>home</h1>
   <div calss='box'>
     <!-- 首页上半部分 -->
+    <!-- 标题下图片 -->
+    <div class="head-image">
+      <div>
+        <el-image src="../assets/img/home.jpg"></el-image>
+      </div>
+    </div>
     <el-row type='flex' class='row-bg' justify='space-between'>
       <div class='block marr10'>
         <el-carousel height='450px' arrow='always' :interval='3000'>
@@ -163,5 +169,12 @@ export default defineComponent({
   line-height: 50px;
 // background-color: rgb(179, 19, 19);
   padding: 0 0 0 10px;
+}
+.head-image{
+  height: 452px;
+  width: 1120px;
+  position: relative;
+  left: 510px;
+  background-image: url(~@/assets/img/home.jpeg);
 }
 </style>
