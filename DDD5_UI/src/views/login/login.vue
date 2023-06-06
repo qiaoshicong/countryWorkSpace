@@ -179,7 +179,7 @@ export default {
               token: res.data.access_token,
               remember: this.form.remember
             }).then(() => {
-              //this.goHome();
+              // this.goHome();
              console.log( res.data.data().userType);
               this.getUserInfo();
             });
@@ -218,10 +218,7 @@ export default {
     },
     /* 跳转到首页 */
     goHome() {
-      const query = this.$route.query;
-      const path = query && query.from ? query.from : '/cms/HomePage';
-      this.$router.push(path).catch(() => {
-      });
+      this.$router.push('/index/first')
     },
     /* 更换图形验证码 */
     changeCode() {

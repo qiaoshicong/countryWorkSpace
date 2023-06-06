@@ -217,7 +217,10 @@ export default defineComponent({
       editModalShowing: false,
       viewModalShowing: false,
       editModalForEdit: false,
-      addModalForEdit: false
+      addModalForEdit: false,
+      tableRefresh:function (){
+        reload()
+      }
     })
     const gridOptions = reactive({
       border: true,

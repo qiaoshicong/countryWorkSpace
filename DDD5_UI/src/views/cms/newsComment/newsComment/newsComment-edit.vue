@@ -10,7 +10,7 @@
                     :label-col="{md: {span: 7}, sm: {span: 24}}"
                     :wrapper-col="{md: {span: 17}, sm: {span: 24}}">
                 <a-row :gutter="16">
-                                                                                                                                                                                                                                            
+
                                 <a-col :lg="6" :md="12" :sm="24" :xs="24">
                                     <a-form-item label="内容:" name="content">
                                                                                     <a-input
@@ -21,7 +21,7 @@
                                             />
                                                                             </a-form-item>
                                 </a-col>
-                                                                                                                                                            
+
                                 <a-col :lg="6" :md="12" :sm="24" :xs="24">
                                     <a-form-item label="评论的文章id:" name="articleId">
                                                                                     <a-input-number
@@ -33,7 +33,7 @@
                                             ></a-input-number>
                                                                             </a-form-item>
                                 </a-col>
-                                                                                                                                                            
+
                                 <a-col :lg="6" :md="12" :sm="24" :xs="24">
                                     <a-form-item label="创建者的id:" name="createIdId">
                                                                                     <m-entity-select
@@ -46,7 +46,7 @@
                                             />
                                                                             </a-form-item>
                                 </a-col>
-                                                                                                                                                            
+
                                 <a-col :lg="6" :md="12" :sm="24" :xs="24">
                                     <a-form-item label="父评论id:" name="parentId">
                                                                                     <a-input-number
@@ -58,7 +58,7 @@
                                             ></a-input-number>
                                                                             </a-form-item>
                                 </a-col>
-                                                                                                                                                                                                                                                        
+
                     <a-col :md="12" :sm="24" :xs="24">
                         <a-form-item :wrapper-col="{md: {offset: 6}}" style="margin-bottom: -20px">
                             <!--class="ele-pull-right"-->
@@ -116,9 +116,9 @@
     import {useStore} from "vuex";
     import regions from 'ele-admin-pro/packages/regions.js';
 
-                                                                                                                                                                                                                                                        
+
                                                         import MEntitySelect from "@/components/MEntity/entitySelect";
-        
+
     export default defineComponent({
         components: {
                                                                                         MEntitySelect,
@@ -241,6 +241,8 @@
             /*TODO:返回列表*/
             const onBack = () => {
                 router.push(`/cms/newsComment/newsComment`);
+                newsCommentListApp.editModalShowing=false;
+                newsCommentListApp.tableRefresh();
                 store.dispatch('user/tabRemove', route.fullPath);
 
             }

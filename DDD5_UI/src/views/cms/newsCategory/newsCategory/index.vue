@@ -195,6 +195,9 @@
                 viewModalShowing: false,
                 editModalForEdit: false,
                 addModalForEdit: false
+              tableRefresh:function (){
+                reload()
+              }
             })
             const gridOptions = reactive({
                 border: true,

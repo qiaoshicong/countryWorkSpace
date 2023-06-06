@@ -235,6 +235,8 @@ export default defineComponent({
     /*TODO:返回列表*/
     const onBack = () => {
       router.push(`/cms/villager/villager`);
+      villagerListApp.editModalShowing=false;
+      villagerListApp.tableRefresh();
       store.dispatch('user/tabRemove', route.fullPath);
 
     }
