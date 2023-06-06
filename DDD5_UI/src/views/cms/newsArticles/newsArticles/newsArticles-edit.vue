@@ -433,6 +433,8 @@ export default defineComponent({
     /*TODO:返回列表*/
     const onBack = () => {
       router.push(`/cms/newsArticles/newsArticles`);
+      newsArticlesListApp.editModalShowing=false;
+      newsArticlesListApp.tableRefresh();
       store.dispatch('user/tabRemove', route.fullPath);
 
     }
