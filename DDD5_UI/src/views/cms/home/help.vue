@@ -1,8 +1,13 @@
 <template>
-<h1>帮扶政策</h1>
+<h1 class="hdtitle">帮扶政策</h1>
   <div calss='box'>
     <!-- 首页上半部分 -->
-
+    <!-- 标题下图片 -->
+    <div class="head-image">
+      <div>
+        <el-image src="../assets/img/bfzc.jpg"></el-image>
+      </div>
+    </div>
     <!-- 通知公告导航条 -->
     <el-row type='flex' class='row-bg underline marb10' justify='space-between'>
       <span class='color'><b>通知公告</b></span>
@@ -80,5 +85,17 @@ export default defineComponent({
 </script>
 
 <style scoped>
+.hdtitle{
+  font-size: 35px;
+  color: #f39408;
+  text-align: center;
 
+}
+.head-image{
+  height: 350px;
+  width: 1040px;
+  position: relative;
+  left: 600px;
+  background-image: url(~@/assets/img/bfzc.jpeg);
+}
 </style>
