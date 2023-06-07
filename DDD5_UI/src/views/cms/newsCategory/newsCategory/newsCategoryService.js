@@ -38,41 +38,6 @@ export class NewsCategoryService {
         });
     }
 
-    //根据ID查询指定的新闻类别(包含外键名称)
-    static findNewsCategoryForEdit (newsCategoryId) {
-        const query = {
-            newsCategoryId
-        }
-        return axios({
-            url: '/cms/newsCategory/NewsCategory/findNewsCategoryForEdit',
-            method: 'POST',
-            params: query,
-        });
-    }
-
-    //根据ID查询指定的新闻类别(只提取ID 和 Name)
-    static findNewsCategorysWithIdNameById (newsCategoryId) {
-        const query = {
-            newsCategoryId
-        }
-        return axios({
-            url: '/cms/newsCategory/NewsCategory/findNewsCategorysWithIdNameById',
-            method: 'POST',
-            params: query,
-        });
-    }
-
-    //根据名称查询新闻类别集合(只提取ID 和 Name)
-    static findNewsCategorysWithIdNameByName (newsCategoryName) {
-        const query = {
-            newsCategoryName
-        }
-        return axios({
-            url: '/cms/newsCategory/NewsCategory/findNewsCategorysWithIdNameByName',
-            method: 'POST',
-            params: query,
-        });
-    }
 
     //新增保存新闻类别
     static saveNewsCategory (newsCategory) {

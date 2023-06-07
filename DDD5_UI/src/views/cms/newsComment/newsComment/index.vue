@@ -24,7 +24,7 @@
                                                                                             </a-form-item>
                                         </a-col>
 
-                                        <a-col  :lg="6" :md="12" :sm="24"
+                                        <a-col  :lg="12" :md="12" :sm="24"
                                                              :xs="24">
                                             <a-form-item label="评论的文章id:" name="articleId">
                                                                                                     <a-input-number
@@ -37,7 +37,7 @@
                                                                                             </a-form-item>
                                         </a-col>
 
-                                        <a-col  :lg="6" :md="12" :sm="24"
+                                        <a-col  :lg="12" :md="12" :sm="24"
                                                              :xs="24">
                                             <a-form-item label="创建者的id:" name="createIdId">
                                                                                                     <m-entity-select
@@ -68,10 +68,6 @@
                                     <a-space>
                                         <a-button type="primary" @click="reload">查询</a-button>
                                         <a-button @click="reset">重置</a-button>
-                                        <a @click="searchExpand = !searchExpand">
-                                            <span v-if="searchExpand">收起 <up-outlined class="ele-text-small"/></span>
-                                            <span v-else>展开 <down-outlined class="ele-text-small"/></span>
-                                        </a>
                                     </a-space>
                                 </a-form-item>
                             </a-col>
@@ -94,9 +90,7 @@
                     <a-space>
                         <a @click="editEvent(row)">修改</a>
                         <a-divider type="vertical"/>
-                        <a class="ele-text-success" @click="editEvent2(row.eid)">修改独立页</a>
-                        <a-divider type="vertical"/>
-                        <a class="ele-text-warning" @click="viewEvent(row)">查看</a>
+                                                <a class="ele-text-warning" @click="viewEvent(row)">查看</a>
                         <a-divider type="vertical"/>
                         <a-popconfirm
                                 title="确定要删除此记录吗？"
@@ -107,11 +101,6 @@
                 </template>
 
 
-                <!--TODO:自定义列模板-->
-                <template #dddd="{  }">
-                    <a href="http://showdoc.cqcflq.com/">文档地址</a>
-                </template>
-
                 <template #ycs>
                     <a-space>
                         <a-button type="primary" @click="addEvent()">
@@ -120,24 +109,14 @@
                             </template>
                             <span>新建弹窗</span>
                         </a-button>
-                        <a-button type="primary" @click="addEvent2()">
-                            <template #icon>
-                                <plus-outlined/>
-                            </template>
-                            <span>新建独立页</span>
-                        </a-button>
-                        <a-button type="danger" @click="batchDeleteEvent()">
+
+                                                <a-button type="danger" @click="batchDeleteEvent()">
                             <template #icon>
                                 <delete-outlined/>
                             </template>
                             <span>批量删除</span>
                         </a-button>
-                        <a-button @click="gridOptions.sortConfig.multiple=!gridOptions.sortConfig.multiple">
-                            <template #icon>
-                                <upload-outlined/>
-                            </template>
-                            <span>{{ gridOptions.sortConfig.multiple === false ? '单' : '多' }}字段排序</span>
-                        </a-button>
+
                     </a-space>
                 </template>
             </vxe-grid>
@@ -184,7 +163,6 @@
 <script>
     import {defineComponent, reactive, ref, toRefs, provide} from 'vue'//, Ref
     import {VXETable} from 'vxe-table'//, VxeGridInstance, VxeGridProps
-    import XEAjax from 'xe-ajax'
     import {NewsCommentService} from "@/views/cms/newsComment/newsComment/newsCommentService";
     import NewsCommentEdit
         from "@/views/cms/newsComment/newsComment/newsComment-edit";
@@ -193,10 +171,9 @@
     import {
         PlusOutlined,
         DeleteOutlined,
-        DownOutlined,
-        UpOutlined,
+
     } from '@ant-design/icons-vue';
-    import {useRouter} from "vue-router";
+
 
                                                         import MEntitySelect from "@/components/MEntity/entitySelect";
 
@@ -204,15 +181,13 @@
         components: {
                 NewsCommentEdit,
                 NewsCommentDetail,
-            DownOutlined,
+
             DeleteOutlined,
             PlusOutlined,
-            UpOutlined,
                                                                                         MEntitySelect,
                     },
         setup() {
-            const router = useRouter();
-            const newsCommentGrid = ref({})// as VxeGridInstance
+             const newsCommentGrid = ref({})// as VxeGridInstance
             // 搜索表单是否展开
             let searchExpand = ref(false)
             let proxyInfo = reactive({})
@@ -256,38 +231,25 @@
                         {field: 'amount'}
                     ]
                 },
-                /*TODO:排序配置 */
-                sortConfig: {
-                    trigger: 'cell',
-                    remote: true,
-                    multiple: true,//多字段排序，默认单排序
-                    showIcon: true,
-                    // iconAsc: "fa fa-arrow-up fa-1x",
-                    // iconDesc: "fa fa-arrow-down fa-1x",
-                },
+
                 customConfig: {
                     storage: true
                 },
-                /*TODO:过滤器配置*/
+                /*T过滤器配置*/
                 filterConfig: {
                     remote: true
                 },
-                /*TODO:分页配置*/
+                /*分页配置*/
                 pagerConfig: {
                     pageSize: 10,
                     pageSizes: [5, 10, 15, 20, 50]
                 },
-                /*TODO:工具栏配置*/
+                /*工具栏配置*/
                 toolbarConfig: {
                     slots: {buttons: 'ycs'},
-                    refresh: true,
-                    import: true,
-                    export: true,
-                    print: true,
-                    zoom: true,
-                    custom: true
+
                 },
-                /*TODO:请求代理配置*/
+                /*请求代理配置*/
                 proxyConfig: {
                     seq: true, // 启用动态序号代理，每一页的序号会根据当前页数变化
                     sort: true, // 启用排序代理，当点击排序时会自动触发 query 行为
@@ -299,9 +261,9 @@
                         total: 'data.totalCount', // 配置响应结果总页数字段
                         message: 'data.msg'
                     },
-                    /*TODO:请求*/
+                    /*请求*/
                     ajax: {
-                        /*TODO:分页条件查询*/
+                        /*页条件查询*/
                         query: ({page, sorts, filters}) => {  // 接收 Promise
 
                             const conditions = {...where.value}
@@ -329,7 +291,7 @@
                     }
                 },
 
-                /*TODO:数据表列*/
+                /*数据表列*/
                 columns: [
                     /*多选checkbox 单选seq*/
                     {type: 'seq', title: '#', width: 40},
@@ -356,89 +318,16 @@
                             },
                                                                                                                                                                                                                                                 {title: '操作', width: 250, slots: {default: 'operate'}}
                 ],
-                /*TODO:导入配置*/
-                importConfig: {
-                    remote: true,
-                    types: ['xlsx'],
-                    modes: ['insert'],
-                    // 自定义服务端导入
-                    importMethod({file}) {
-                        const $grid = newsCommentGrid.value
-                        const formBody = new FormData()
-                        formBody.append('file', file)
-                        return XEAjax.post('https://api.xuliangzhan.com:10443/demo/api/pub/import', formBody).then(data => {
-                            VXETable.modal.message({content: `成功导入 ${data.result.insertRows} 条记录！`, status: 'success'})
-                            // 导入完成，刷新表格
-                                $grid.commitProxy('query')
-                        }).catch(() => {
-                            VXETable.modal.message({content: '导入失败，请检查数据是否正确！', status: 'error'})
-                        })
-                    }
-                },
-                /*TODO:导出配置*/
-                exportConfig: {
-                    remote: true,
-                    types: ['xlsx', 'csv', 'html', 'txt', 'pdf'],
-                    modes: ['current', 'selected', 'all'],
-                    // 自定义服务端导出
-                    exportMethod({options}) {
-                        const $grid = newsCommentGrid.value
-                        const proxyInfo = $grid.getProxyInfo()
-                        const queryParams = $grid.queryParams;
-                        // 传给服务端的参数
-                        const body = {
-                            ...queryParams,
-                            filename: options.filename,
-                            sheetName: options.sheetName,
-                            isHeader: options.isHeader,
-                            original1: options.original,
-                            mode: options.mode,
-                            pager: proxyInfo ? proxyInfo.pager : null,
-                            ids: options.mode === 'selected' ? options.data.map((item) => item.id) : [],
-                            fields: '%7B%22field%22:%22nickname%22,%22title%22:%22Nickname%22%7D&fields[]=%7B%22field%22:%22sex%22ge%22,%22title%22:%22Age%22%7D&fimount%22,%22title%22:%22Amount%22%7D&fields[]=%7B%22field'
-                        }
-
-                        // 开始服务端导出
-                        return NewsCommentService.findNewsCommentsForExport(body).then(data => {
-                            VXETable.modal.message({content: `成功${data}`, status: 'error'});
-                            // if (data.id) {
-                            // VXETable.modal.message({ content: '导出成功，开始下载', status: 'success' })
-                            // // 读取路径，请求文件
-                            // fetch(`https://api.xuliangzhan.com:10443/demo/api/pub/export/download/\${data.id}`).then(response => {
-                            //   response.blob().then(blob => {
-                            //     // 开始下载
-                            //     VXETable.saveFile({ filename: '导出数据', type: 'xlsx', content: blob })
-                            //   })
-                            // })
-                            // }
-                        }).catch(error => {
-                            VXETable.modal.message({content: `导出失败，原因是：${error.message}`, status: 'error'});
-
-                        })
-                    }
 
 
-                },
-                /*TODO:复选框配置*/
+                /*复选框配置*/
                 checkboxConfig: {
                     labelField: 'eid',
                     reserve: false,
                     highlight: false,
                     range: true
                 },
-                /*TODO:编辑验证*/
-                editRules: {
-                    name: [
-                        {required: true, message: 'app.body.valid.rName'},
-                        {min: 3, max: 50, message: '名称长度在 3 到 50 个字符'}
-                    ],
-                    email: [
-                        {required: true, message: '邮件必须填写'}
-                    ],
-                    role: [
-                        {required: true, message: '角色必须填写'}
-                    ]
-                },
+
                 editConfig: {
                     trigger: 'click',
                     mode: 'row',
@@ -448,7 +337,7 @@
             provide('newsCommentListApp', newsCommentListApp)
             provide('gridOptions', gridOptions)
 
-            /*TODO:新建事件*/
+            /*新建事件*/
             const addEvent = () => {
                     newsCommentListApp.editModalShowing = true
                     newsCommentListApp.currentId = null;
@@ -456,36 +345,29 @@
                 gridOptions.showEditTitle = "新建";
             }
 
-            /*TODO:新建独立页*/
-            const addEvent2 = () => {
-                router.push(`/cms/newsComment/newsComment/newsComment-add`);
-            }
-            /*TODO:编辑事件*/
+
+            /*编辑事件*/
             const editEvent = (row) => {
                     newsCommentListApp.editModalShowing = true
                     newsCommentListApp.currentId = row.eid;
                     newsCommentListApp.editModalForEdit = true;
                 gridOptions.showEditTitle = "编辑";
             }
-            /*TODO:编辑独立页*/
-            const editEvent2 = (eid) => {
-                router.push(`/cms/newsComment/newsComment/newsComment-edit/${eid}`);
-            }
 
-            /*TODO:编辑关闭事件*/
+            /*编辑关闭事件*/
             const editEventClose = () => {
                 console.log(gridOptions.formData);
                 VXETable.modal.message({content: '提交成功', status: 'success'})
             }
 
-            /*TODO:查看事件*/
+            /*查看事件*/
             const viewEvent = (row) => {
                     newsCommentListApp.currentId = row.eid;
                     newsCommentListApp.viewModalShowing = true
                 gridOptions.showDetailsTitle = '查看';
             }
 
-            /*TODO:删除事件*/
+            /*删除事件*/
             const deleteEvent = (row) => {
                     NewsCommentService.deleteNewsComment(row.eid).then(() => {
                     VXETable.modal.message({content: '操作成功', status: 'success'})
@@ -494,23 +376,23 @@
                 })
             }
 
-            /*TODO:批量删除*/
+            /*批量删除*/
             const batchDeleteEvent = () => {
                 VXETable.modal.message({content: '点了批量删除', status: 'success'})
             }
-            /*TODO:条件查询提交*/
+            /*条件查询提交*/
             const reload = () => {
                 const $grid = newsCommentGrid.value
-                    $grid.commitProxy('query')//TODO:执行代理方法
+                    $grid.commitProxy('query')
             }
-            /*TODO:重置搜索*/
+            /*重置搜索*/
             const reset = () => {
                 where.value = {}
                 const $grid = newsCommentGrid.value
-                    $grid.commitProxy('query')//TODO:执行代理方法
+                    $grid.commitProxy('query')//
             }
 
-            //TODO:这里需要返回才能调用
+            //这里需要返回才能调用
             return {
                 eid,
                 newsCommentGrid,
@@ -523,9 +405,7 @@
                 editEventClose,
                 deleteEvent,
                 batchDeleteEvent,
-                editEvent2,
-                addEvent2,
-                where,
+                               where,
                 reload,
                 reset,
                     newsCommentListApp,

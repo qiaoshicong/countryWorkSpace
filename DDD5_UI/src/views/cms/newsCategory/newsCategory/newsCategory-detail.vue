@@ -43,7 +43,7 @@
             let routeId = route.params.id;
             let newsCategoryListApp = inject('newsCategoryListApp', reactive({}));
             const newsCategoryModalApp = reactive({id: null, newsCategory: {}, display: false});
-
+            //点击
             onMounted(() => {
                     newsCategoryModalApp.newsCategory = {};
                 if (routeId) {

@@ -37,43 +37,6 @@ export class NewsCommentService {
             params: query,
         });
     }
-
-    //根据ID查询指定的新闻评论(包含外键名称)
-    static findNewsCommentForEdit (newsCommentId) {
-        const query = {
-            newsCommentId
-        }
-        return axios({
-            url: '/cms/newsComment/NewsComment/findNewsCommentForEdit',
-            method: 'POST',
-            params: query,
-        });
-    }
-
-    //根据ID查询指定的新闻评论(只提取ID 和 Name)
-    static findNewsCommentsWithIdNameById (newsCommentId) {
-        const query = {
-            newsCommentId
-        }
-        return axios({
-            url: '/cms/newsComment/NewsComment/findNewsCommentsWithIdNameById',
-            method: 'POST',
-            params: query,
-        });
-    }
-
-    //根据名称查询新闻评论集合(只提取ID 和 Name)
-    static findNewsCommentsWithIdNameByName (newsCommentName) {
-        const query = {
-            newsCommentName
-        }
-        return axios({
-            url: '/cms/newsComment/NewsComment/findNewsCommentsWithIdNameByName',
-            method: 'POST',
-            params: query,
-        });
-    }
-
     //新增保存新闻评论
     static saveNewsComment (newsComment) {
         const query = {}

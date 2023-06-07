@@ -1,11 +1,11 @@
 package com.mt.cms.dao.newsComment;
 
-import com.mt.common.core.web.base.PageDTO;
-import com.mt.common.core.web.base.PageResultDTO;
 import com.mt.cms.entity.newsComment.NewsComment;
+import com.mt.common.core.web.base.PageDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Mapper
@@ -25,25 +25,6 @@ public interface NewsCommentDao {
     */
     public List<NewsComment> findAllNewsComments();
 
-    /**
-    * 查询所有新闻评论集合(只提取ID 和 Name)
-    *
-    */
-    public List<NewsComment> findAllNewsCommentsWithIdName();
-
-    /**
-    * 根据名称查询新闻评论集合(只提取ID 和 Name)
-    *
-    * @param newsCommentName 名称
-    */
-    public List<NewsComment> findNewsCommentsWithIdNameByName(@Param("newsCommentName") String newsCommentName);
-
-    /**
-    * 根据ID查询指定的新闻评论(只提取ID 和 Name)
-    *
-    * @param newsCommentId Id
-    */
-    public NewsComment findNewsCommentsWithIdNameById(@Param(" newsCommentId") Long newsCommentId);
 
     /**
     * 根据分页参数查询新闻评论集合的数量
@@ -59,12 +40,7 @@ public interface NewsCommentDao {
     */
     public NewsComment findNewsComment(@Param("newsCommentId") Long newsCommentId);
 
-    /**
-    * 根据ID查询指定的新闻评论(包含外键)
-    *
-    * @param newsCommentId Id
-    */
-    public NewsComment findNewsCommentWithForeignName(@Param("newsCommentId") Long newsCommentId);
+
 
     /**
     * 新增新闻评论
