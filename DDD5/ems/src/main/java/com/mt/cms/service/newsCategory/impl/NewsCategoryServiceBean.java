@@ -1,27 +1,24 @@
 package com.mt.cms.service.newsCategory.impl;
 
 import com.mt.cms.dao.newsCategory.NewsCategoryDao;
-
-import com.mt.common.core.exception.BusinessException;
-import com.mt.common.core.web.base.PageDTO;
-import com.mt.common.core.web.base.PageResultDTO;
-import com.mt.common.core.web.base.BaseEntity;
-import com.mt.common.core.web.BaseService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import com.mt.cms.entity.newsCategory.NewsCategory;
 import com.mt.cms.service.newsCategory.NewsCategoryService;
+import com.mt.common.core.exception.BusinessException;
+import com.mt.common.core.web.BaseService;
+import com.mt.common.core.web.base.BaseEntity;
+import com.mt.common.core.web.base.PageDTO;
+import com.mt.common.core.web.base.PageResultDTO;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -71,45 +68,45 @@ public class NewsCategoryServiceBean extends BaseService implements NewsCategory
 	 * 查询所有新闻类别集合(只提取ID 和 Name)
 	 *
 	 */
-	@Override
-	public List<NewsCategory> findAllNewsCategorysWithIdName(){
-		//TODO:请在此校验参数的合法性
-		this.validateFindAllNewsCategorysWithIdName();
-		return this.newsCategoryDao.findAllNewsCategorysWithIdName();
-	}
+//	@Override
+//	public List<NewsCategory> findAllNewsCategorysWithIdName(){
+//		//TODO:请在此校验参数的合法性
+//		this.validateFindAllNewsCategorysWithIdName();
+//		return this.newsCategoryDao.findAllNewsCategorysWithIdName();
+//	}
 
 	/**
 	 * 根据名称查询新闻类别集合(只提取ID 和 Name)
 	 *
 	 * @param newsCategoryName 名称
 	 */
-	@Override
-	public List<NewsCategory> findNewsCategorysWithIdNameByName(String newsCategoryName){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsCategorysWithIdNameByName(newsCategoryName);
-		//TODO:缓存取对应参数
-		Set<String> keys = stringRedisTemplate.keys("searchData:NewsCategory_where_newsCategoryName_" + newsCategoryName);
-		List<NewsCategory> newsCategorys = new ArrayList<>();
-		if (keys.isEmpty()) {
-		newsCategorys = this.newsCategoryDao.findNewsCategorysWithIdNameByName(newsCategoryName);
-		redisTemplate.opsForValue().set("searchData:NewsCategory_where_newsCategoryName_" + newsCategoryName, newsCategorys, 30, TimeUnit.DAYS);
-		} else {
-		newsCategorys = redisTemplate.opsForValue().get("searchData:NewsCategory_where_newsCategoryName_" + newsCategoryName);
-		}
-		return newsCategorys;
-	}
+//	@Override
+//	public List<NewsCategory> findNewsCategorysWithIdNameByName(String newsCategoryName){
+//		//TODO:请在此校验参数的合法性
+//		this.validateFindNewsCategorysWithIdNameByName(newsCategoryName);
+//		//TODO:缓存取对应参数
+//		Set<String> keys = stringRedisTemplate.keys("searchData:NewsCategory_where_newsCategoryName_" + newsCategoryName);
+//		List<NewsCategory> newsCategorys = new ArrayList<>();
+//		if (keys.isEmpty()) {
+//		newsCategorys = this.newsCategoryDao.findNewsCategorysWithIdNameByName(newsCategoryName);
+//		redisTemplate.opsForValue().set("searchData:NewsCategory_where_newsCategoryName_" + newsCategoryName, newsCategorys, 30, TimeUnit.DAYS);
+//		} else {
+//		newsCategorys = redisTemplate.opsForValue().get("searchData:NewsCategory_where_newsCategoryName_" + newsCategoryName);
+//		}
+//		return newsCategorys;
+//	}
 
 	/**
 	 * 根据ID查询指定的新闻类别(只提取ID 和 Name)
 	 *
 	 * @param newsCategoryId Id
 	 */
-	@Override
-	public NewsCategory findNewsCategorysWithIdNameById(Long newsCategoryId){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsCategorysWithIdNameById(newsCategoryId);
-		return this.newsCategoryDao.findNewsCategorysWithIdNameById(newsCategoryId);
-	}
+//	@Override
+//	public NewsCategory findNewsCategorysWithIdNameById(Long newsCategoryId){
+//		//TODO:请在此校验参数的合法性
+//		this.validateFindNewsCategorysWithIdNameById(newsCategoryId);
+//		return this.newsCategoryDao.findNewsCategorysWithIdNameById(newsCategoryId);
+//	}
 
 	/**
 	 * 根据ID查询指定的新闻类别
@@ -128,12 +125,12 @@ public class NewsCategoryServiceBean extends BaseService implements NewsCategory
 	 *
 	 * @param newsCategoryId Id
 	 */
-	@Override
-	public NewsCategory findNewsCategoryWithForeignName(Long newsCategoryId){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsCategoryWithForeignName(newsCategoryId);
-		return this.newsCategoryDao.findNewsCategoryWithForeignName(newsCategoryId);
-	}
+//	@Override
+//	public NewsCategory findNewsCategoryWithForeignName(Long newsCategoryId){
+//		//TODO:请在此校验参数的合法性
+//		this.validateFindNewsCategoryWithForeignName(newsCategoryId);
+//		return this.newsCategoryDao.findNewsCategoryWithForeignName(newsCategoryId);
+//	}
 
 	/**
 	 * 新增新闻类别

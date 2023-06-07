@@ -11,7 +11,7 @@
             <a-row>
 
 
-              <a-col :md="6">
+              <a-col :md="8">
                 <a-form-item label="新闻标题:" name="title">
                   <a-input
                     v-model:value="where.title"
@@ -23,13 +23,14 @@
                 </a-form-item>
               </a-col>
 
-              <a-col  :md="6" >
-                <a-form-item label="作者姓名:" name="publisherName">
-                  <a-input
-                    v-model:value="where.publisherNameName"
-                    :maxlength="255"
-                    placeholder="请输入作者姓名"
-                    allow-clear
+              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
+                     :xs="24">
+                <a-form-item label="作者姓名:" name="publisherNameId">
+                  <m-entity-select
+                    v-model:value="where.publisherNameId"
+                    placeholder="请选择作者姓名"
+                    module="publisher"
+                    entity="Publisher"
                     class="ele-fluid"
                   />
                 </a-form-item>
@@ -49,104 +50,17 @@
 
               <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
                      :xs="24">
-                <a-form-item label="新闻类别id:" name="categoryId">
-                  <a-input-number
-                    v-model:value="where.categoryId"
-                    placeholder="请输入新闻类别id"
-                    :min="0"
-                    :step="1"
-                    class="ele-fluid">
-                  </a-input-number>
-                </a-form-item>
-              </a-col>
-
-              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="新闻缩略图:" name="thumbnail">
-<!--                  <img v-if="appraisingModalApp.isPicture" :src="appraisingModalApp.phone_tip_url" class="avatar"-->
-<!--                       @click="look">-->
-<!--                  <a-upload-->
-<!--                    name="file"-->
-<!--                    :multiple="false"-->
-<!--                    :action="uploadUrl"-->
-<!--                    :headers="headers"-->
-<!--                    :limit="1"-->
-<!--                    @change="handleChangeFile"-->
-<!--                  >-->
-                  <a-input
-                    v-model:value="where.thumbnail"
-                    :maxlength="255"
-                    placeholder="请输入新闻缩略图"
-                    allow-clear
-                    class="ele-fluid"
-                  />
-                </a-form-item>
-              </a-col>
-
-              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="评论数:" name="comment">
-                  <a-input-number
-                    v-model:value="where.comment"
-                    placeholder="请输入评论数"
-                    :min="0"
-                    :step="1"
-                    class="ele-fluid">
-                  </a-input-number>
-                </a-form-item>
-              </a-col>
-
-              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="新闻类型:" name="type">
-                  <a-input-number
-                    v-model:value="where.type"
-                    placeholder="请输入新闻类型"
-                    :min="0"
-                    :step="1"
-                    class="ele-fluid">
-                  </a-input-number>
-                </a-form-item>
-              </a-col>
-
-              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="状态:" name="status">
-                  <a-input
-                    v-model:value="where.status"
-                    :maxlength="255"
-                    placeholder="请输入状态"
-                    allow-clear
-                    class="ele-fluid"
-                  />
-                </a-form-item>
-              </a-col>
-
-              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="是否置顶:" name="isTop">
-                  <a-input-number
-                    v-model:value="where.isTop"
-                    placeholder="请输入是否置顶"
-                    :min="0"
-                    :step="1"
-                    class="ele-fluid">
-                  </a-input-number>
-                </a-form-item>
-              </a-col>
-
-              <a-col v-if="searchExpand" :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="作者姓名:" name="publisherNameId">
+                <a-form-item label="新闻类别:" name="categoryId">
                   <m-entity-select
-                    v-model:value="where.publisherNameId"
-                    placeholder="请选择作者姓名"
-                    module="newsArticles"
-                    entity="Publisher"
+                    v-model:value="where.categoryId"
+                    placeholder="请输入新闻类别"
+                    module="NewsCategory"
+                    entity="NewsCategory"
                     class="ele-fluid"
-                  />
+                    />
                 </a-form-item>
               </a-col>
+
 
               <a-col :lg="6" :md="12" :sm="24" :xs="24">
                 <a-form-item class="ele-text-right" :wrapper-col="{span: 24}">
@@ -193,7 +107,7 @@
           <template #img="{ row }">
             <a-space>
 <!--              <a-tag color="orange"><UserOutlined /> {{ row.thumbnail }}</a-tag>-->
-              <img :src= "row.thumbnail"  />
+              <img :src= "row.thumbnail" style="width: 60px" />
             </a-space>
           </template>
 
@@ -204,7 +118,7 @@
               <template #icon>
                 <plus-outlined/>
               </template>
-              <span>新建弹窗</span>
+              <span>新增新闻</span>
             </a-button>
 
           </a-space>
@@ -399,7 +313,7 @@ export default defineComponent({
         }
       },
 
-      /*TODO:数据表列*/
+      /*数据表列*/
       columns: [
         /*多选checkbox 单选seq*/
         {type: 'seq', title: '#', width: 40},
@@ -453,94 +367,13 @@ export default defineComponent({
 
         {title: '操作', width: 250, slots: {default: 'operate'}}
       ],
-      // /*TODO:导入配置*/
-      // importConfig: {
-      //   remote: true,
-      //   types: ['xlsx'],
-      //   modes: ['insert'],
-      //   // 自定义服务端导入
-      //   importMethod({file}) {
-      //     const $grid = newsArticlesGrid.value
-      //     const formBody = new FormData()
-      //     formBody.append('file', file)
-      //     return XEAjax.post('https://api.xuliangzhan.com:10443/demo/api/pub/import', formBody).then(data => {
-      //       VXETable.modal.message({content: `成功导入 ${data.result.insertRows} 条记录！`, status: 'success'})
-      //       // 导入完成，刷新表格
-      //       $grid.commitProxy('query')
-      //     }).catch(() => {
-      //       VXETable.modal.message({content: '导入失败，请检查数据是否正确！', status: 'error'})
-      //     })
-      //   }
-      // },
-      // /*TODO:导出配置*/
-      // exportConfig: {
-      //   remote: true,
-      //   types: ['xlsx', 'csv', 'html', 'txt', 'pdf'],
-      //   modes: ['current', 'selected', 'all'],
-      //   // 自定义服务端导出
-      //   exportMethod({options}) {
-      //     const $grid = newsArticlesGrid.value
-      //     const proxyInfo = $grid.getProxyInfo()
-      //     const queryParams = $grid.queryParams;
-      //     // 传给服务端的参数
-      //     const body = {
-      //       ...queryParams,
-      //       filename: options.filename,
-      //       sheetName: options.sheetName,
-      //       isHeader: options.isHeader,
-      //       original1: options.original,
-      //       mode: options.mode,
-      //       pager: proxyInfo ? proxyInfo.pager : null,
-      //       ids: options.mode === 'selected' ? options.data.map((item) => item.id) : [],
-      //       fields: '%7B%22field%22:%22nickname%22,%22title%22:%22Nickname%22%7D&fields[]=%7B%22field%22:%22sex%22ge%22,%22title%22:%22Age%22%7D&fimount%22,%22title%22:%22Amount%22%7D&fields[]=%7B%22field'
-      //     }
+
       //
-      //     // 开始服务端导出
-      //     return NewsArticlesService.findNewsArticlessForExport(body).then(data => {
-      //       VXETable.modal.message({content: `成功${data}`, status: 'error'});
-      //       // if (data.id) {
-      //       // VXETable.modal.message({ content: '导出成功，开始下载', status: 'success' })
-      //       // // 读取路径，请求文件
-      //       // fetch(`https://api.xuliangzhan.com:10443/demo/api/pub/export/download/\${data.id}`).then(response => {
-      //       //   response.blob().then(blob => {
-      //       //     // 开始下载
-      //       //     VXETable.saveFile({ filename: '导出数据', type: 'xlsx', content: blob })
-      //       //   })
-      //       // })
-      //       // }
-      //     }).catch(error => {
-      //       VXETable.modal.message({content: `导出失败，原因是：${error.message}`, status: 'error'});
-      //
-      //     })
-      //   }
-      //
-      //
-      // },
-      /*TODO:复选框配置*/
-      checkboxConfig: {
-        labelField: 'eid',
-        reserve: false,
-        highlight: false,
-        range: true
-      },
-      /*TODO:编辑验证*/
-      // editRules: {
-      //   name: [
-      //     {required: true, message: 'app.body.valid.rName'},
-      //     {min: 3, max: 50, message: '名称长度在 3 到 50 个字符'}
-      //   ],
-      //   email: [
-      //     {required: true, message: '邮件必须填写'}
-      //   ],
-      //   role: [
-      //     {required: true, message: '角色必须填写'}
-      //   ]
-      // },
-      editConfig: {
-        trigger: 'click',
-        mode: 'row',
-        showStatus: true
-      }
+      // editConfig: {
+      //   trigger: 'click',
+      //   mode: 'row',
+      //   showStatus: true
+      // }
     })//as VxeGridProps
     provide('newsArticlesListApp', newsArticlesListApp)
     provide('gridOptions', gridOptions)
@@ -592,10 +425,10 @@ export default defineComponent({
       })
     }
 
-    /*TODO:批量删除*/
-    const batchDeleteEvent = () => {
-      VXETable.modal.message({content: '点了批量删除', status: 'success'})
-    }
+    // /*TODO:批量删除*/
+    // const batchDeleteEvent = () => {
+    //   VXETable.modal.message({content: '点了批量删除', status: 'success'})
+    // }
     /*TODO:条件查询提交*/
     const reload = () => {
       const $grid = newsArticlesGrid.value
@@ -620,7 +453,7 @@ export default defineComponent({
       viewEvent,
       editEventClose,
       deleteEvent,
-      batchDeleteEvent,
+      // batchDeleteEvent,
       // editEvent2,
       // addEvent2,
       where,

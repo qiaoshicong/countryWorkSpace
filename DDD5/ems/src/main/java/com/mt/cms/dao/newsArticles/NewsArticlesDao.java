@@ -25,25 +25,7 @@ public interface NewsArticlesDao {
     */
     public List<NewsArticles> findAllNewsArticless();
 
-    /**
-    * 查询所有新闻文章集合(只提取ID 和 Name)
-    *
-    */
-    public List<NewsArticles> findAllNewsArticlessWithIdName();
 
-    /**
-    * 根据名称查询新闻文章集合(只提取ID 和 Name)
-    *
-    * @param newsArticlesName 名称
-    */
-    public List<NewsArticles> findNewsArticlessWithIdNameByName(@Param("newsArticlesName") String newsArticlesName);
-
-    /**
-    * 根据ID查询指定的新闻文章(只提取ID 和 Name)
-    *
-    * @param newsArticlesId Id
-    */
-    public NewsArticles findNewsArticlessWithIdNameById(@Param(" newsArticlesId") Long newsArticlesId);
 
     /**
     * 根据分页参数查询新闻文章集合的数量
@@ -59,12 +41,12 @@ public interface NewsArticlesDao {
     */
     public NewsArticles findNewsArticles(@Param("newsArticlesId") Long newsArticlesId);
 
-    /**
-    * 根据ID查询指定的新闻文章(包含外键)
-    *
-    * @param newsArticlesId Id
-    */
-    public NewsArticles findNewsArticlesWithForeignName(@Param("newsArticlesId") Long newsArticlesId);
+//    /**
+//    * 根据ID查询指定的新闻文章(包含外键)
+//    *
+//    * @param newsArticlesId Id
+//    */
+//    public NewsArticles findNewsArticlesWithForeignName(@Param("newsArticlesId") Long newsArticlesId);
 
     /**
     * 新增新闻文章
@@ -88,4 +70,6 @@ public interface NewsArticlesDao {
     public Long deleteNewsArticles(@Param("newsArticlesId") Long newsArticlesId);
 
     List<NewsArticles> findNewsArticlessMy();
+
+    NewsArticles findNewsArticlesWithForeignName(Long newsArticlesId);
 }

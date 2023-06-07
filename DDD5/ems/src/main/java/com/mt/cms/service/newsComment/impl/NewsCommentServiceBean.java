@@ -17,11 +17,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
-import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -71,45 +68,45 @@ public class NewsCommentServiceBean extends BaseService implements NewsCommentSe
 	 * 查询所有新闻评论集合(只提取ID 和 Name)
 	 *
 	 */
-	@Override
-	public List<NewsComment> findAllNewsCommentsWithIdName(){
-		//TODO:请在此校验参数的合法性
-		this.validateFindAllNewsCommentsWithIdName();
-		return this.newsCommentDao.findAllNewsCommentsWithIdName();
-	}
+//	@Override
+//	public List<NewsComment> findAllNewsCommentsWithIdName(){
+//		//TODO:请在此校验参数的合法性
+//		this.validateFindAllNewsCommentsWithIdName();
+//		return this.newsCommentDao.findAllNewsCommentsWithIdName();
+//	}
 
-	/**
-	 * 根据名称查询新闻评论集合(只提取ID 和 Name)
-	 *
-	 * @param newsCommentName 名称
-	 */
-	@Override
-	public List<NewsComment> findNewsCommentsWithIdNameByName(String newsCommentName){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsCommentsWithIdNameByName(newsCommentName);
-		//TODO:缓存取对应参数
-		Set<String> keys = stringRedisTemplate.keys("searchData:NewsComment_where_newsCommentName_" + newsCommentName);
-		List<NewsComment> newsComments = new ArrayList<>();
-		if (keys.isEmpty()) {
-		newsComments = this.newsCommentDao.findNewsCommentsWithIdNameByName(newsCommentName);
-		redisTemplate.opsForValue().set("searchData:NewsComment_where_newsCommentName_" + newsCommentName, newsComments, 30, TimeUnit.DAYS);
-		} else {
-		newsComments = redisTemplate.opsForValue().get("searchData:NewsComment_where_newsCommentName_" + newsCommentName);
-		}
-		return newsComments;
-	}
-
-	/**
-	 * 根据ID查询指定的新闻评论(只提取ID 和 Name)
-	 *
-	 * @param newsCommentId Id
-	 */
-	@Override
-	public NewsComment findNewsCommentsWithIdNameById(Long newsCommentId){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsCommentsWithIdNameById(newsCommentId);
-		return this.newsCommentDao.findNewsCommentsWithIdNameById(newsCommentId);
-	}
+//	/**
+//	 * 根据名称查询新闻评论集合(只提取ID 和 Name)
+//	 *
+//	 * @param newsCommentName 名称
+//	 */
+//	@Override
+//	public List<NewsComment> findNewsCommentsWithIdNameByName(String newsCommentName){
+//		//TODO:请在此校验参数的合法性
+//		this.validateFindNewsCommentsWithIdNameByName(newsCommentName);
+//		//TODO:缓存取对应参数
+//		Set<String> keys = stringRedisTemplate.keys("searchData:NewsComment_where_newsCommentName_" + newsCommentName);
+//		List<NewsComment> newsComments = new ArrayList<>();
+//		if (keys.isEmpty()) {
+//		newsComments = this.newsCommentDao.findNewsCommentsWithIdNameByName(newsCommentName);
+//		redisTemplate.opsForValue().set("searchData:NewsComment_where_newsCommentName_" + newsCommentName, newsComments, 30, TimeUnit.DAYS);
+//		} else {
+//		newsComments = redisTemplate.opsForValue().get("searchData:NewsComment_where_newsCommentName_" + newsCommentName);
+//		}
+//		return newsComments;
+//	}
+//
+//	/**
+//	 * 根据ID查询指定的新闻评论(只提取ID 和 Name)
+//	 *
+//	 * @param newsCommentId Id
+//	 */
+//	@Override
+//	public NewsComment findNewsCommentsWithIdNameById(Long newsCommentId){
+//		//TODO:请在此校验参数的合法性
+//		this.validateFindNewsCommentsWithIdNameById(newsCommentId);
+//		return this.newsCommentDao.findNewsCommentsWithIdNameById(newsCommentId);
+//	}
 
 	/**
 	 * 根据ID查询指定的新闻评论
@@ -122,18 +119,18 @@ public class NewsCommentServiceBean extends BaseService implements NewsCommentSe
 		this.validateFindNewsComment(newsCommentId);
 		return this.newsCommentDao.findNewsComment(newsCommentId);
 	}
-
-	/**
-	 * 根据ID查询指定的新闻评论(包含外键)
-	 *
-	 * @param newsCommentId Id
-	 */
-	@Override
-	public NewsComment findNewsCommentWithForeignName(Long newsCommentId){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsCommentWithForeignName(newsCommentId);
-		return this.newsCommentDao.findNewsCommentWithForeignName(newsCommentId);
-	}
+//
+//	/**
+//	 * 根据ID查询指定的新闻评论(包含外键)
+//	 *
+//	 * @param newsCommentId Id
+//	 */
+//	@Override
+//	public NewsComment findNewsCommentWithForeignName(Long newsCommentId){
+//		//TODO:请在此校验参数的合法性
+//		this.validateFindNewsCommentWithForeignName(newsCommentId);
+//		return this.newsCommentDao.findNewsCommentWithForeignName(newsCommentId);
+//	}
 
 	/**
 	 * 新增新闻评论

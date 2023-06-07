@@ -5,6 +5,7 @@ import axios from 'axios';
  * 新闻文章
  */
 export class NewsArticlesService {
+  //----2
   static findAll () {
     return axios({
       url: '/cms/newsArticles/NewsArticles/findAll',
@@ -13,7 +14,7 @@ export class NewsArticlesService {
   }
 
 
-  // 分页查询列表
+  // 分页查询列表---1
     static findNewsArticless (queryParams) {
         return axios({
             url: '/cms/newsArticles/NewsArticles/findNewsArticless',
@@ -46,41 +47,6 @@ export class NewsArticlesService {
         });
     }
 
-    //根据ID查询指定的新闻文章(包含外键名称)
-    static findNewsArticlesForEdit (newsArticlesId) {
-        const query = {
-            newsArticlesId
-        }
-        return axios({
-            url: '/cms/newsArticles/NewsArticles/findNewsArticlesForEdit',
-            method: 'POST',
-            params: query,
-        });
-    }
-
-    //根据ID查询指定的新闻文章(只提取ID 和 Name)
-    static findNewsArticlessWithIdNameById (newsArticlesId) {
-        const query = {
-            newsArticlesId
-        }
-        return axios({
-            url: '/cms/newsArticles/NewsArticles/findNewsArticlessWithIdNameById',
-            method: 'POST',
-            params: query,
-        });
-    }
-
-    //根据名称查询新闻文章集合(只提取ID 和 Name)
-    static findNewsArticlessWithIdNameByName (newsArticlesName) {
-        const query = {
-            newsArticlesName
-        }
-        return axios({
-            url: '/cms/newsArticles/NewsArticles/findNewsArticlessWithIdNameByName',
-            method: 'POST',
-            params: query,
-        });
-    }
 
     //新增保存新闻文章
     static saveNewsArticles (newsArticles) {
@@ -104,7 +70,7 @@ export class NewsArticlesService {
         });
     }
 
-    //根据ID查询指定的新闻文章(只提取ID 和 Name)
+    //根据ID查询指定的新闻文章(只提取ID 和 Name)     -----3
     static deleteNewsArticles (newsArticlesId) {
         const query = {
             newsArticlesId

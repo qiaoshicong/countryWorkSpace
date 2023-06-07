@@ -239,52 +239,13 @@
                 ORDER BY t0.create_datetime
     </select>
 
-    <!-- 根据名称查询数据集合,只提取ID 和 Name -->
-    <select id="findPublishersWithIdNameByName" resultType="com.mt.cms.entity.publisher.Publisher" parameterType="java.lang.String">
-        select
-            t0.eid,t0.name
-        from cms_publisher t0
-        where t0.name like  '%${publisherName}%'
-        ORDER BY t0.name
-    </select>
-
-
-    <!-- 查询所有数据集合,只提取ID 和 Name -->
-    <select id="findAllPublishersWithIdName" resultType="com.mt.cms.entity.publisher.Publisher" >
-        select
-        t0.eid,t0.name
-        from cms_publisher t0
-        ORDER BY t0.name
-    </select>
-
-    <!-- 查询指定的实体,只提取ID 和 Name -->
-    <select id="findPublishersWithIdNameById" resultType="com.mt.cms.entity.publisher.Publisher" parameterType="java.lang.Long">
-        select
-        t0.eid,t0.name
-        from cms_publisher t0
-        where eid = #{publisherId}
-    </select>
 
     <!--  根据Id查询 -->
     <select id="findPublisher" resultType="com.mt.cms.entity.publisher.Publisher" parameterType="java.lang.Long">
         select * from cms_publisher where eid = #{publisherId}
     </select>
-
-    <!-- 根据ID查询指定的实体(包含外键) -->
-    <select id="findPublisherWithForeignName" resultType="com.mt.cms.entity.publisher.Publisher" parameterType="java.lang.Long">
-        select
-                    t0.eid  ,
-                    t0.creator_name  ,
-                    t0.name  ,
-                    t0.phone  ,
-                    t0.address  ,
-                    t0.count  ,
-                    t0.status  ,
-                    t0.creator_id  ,
-                    t0.remark  ,
-                    t0.create_datetime  
-                        from cms_publisher t0
-                where t0.eid = #{publisherId}
+    <select id="findPublisherByName" resultType="com.mt.cms.entity.publisher.Publisher">
+        select * from cms_publisher t0 where t0.name = #{nilkname}
     </select>
 
 

@@ -25,20 +25,20 @@ public interface NewsCategoryService {
      *
      * @param newsCategoryName 名称
      */
-    public List<NewsCategory> findNewsCategorysWithIdNameByName(String newsCategoryName);
+
 
     /**
      * 查询所有新闻类别集合(只提取ID 和 Name)
      *
      */
-    public List<NewsCategory> findAllNewsCategorysWithIdName();
+
 
     /**
      * 根据ID查询指定的新闻类别(只提取ID 和 Name)
      *
      * @param newsCategoryId Id
      */
-    public NewsCategory findNewsCategorysWithIdNameById(Long newsCategoryId);
+
 
     /**
      * 根据ID查询指定的新闻类别
@@ -52,7 +52,7 @@ public interface NewsCategoryService {
      *
      * @param newsCategoryId Id
      */
-    public NewsCategory findNewsCategoryWithForeignName(Long newsCategoryId);
+
 
     /**
      * 新增新闻类别

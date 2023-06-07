@@ -157,11 +157,6 @@
         </template>
 
 
-        <!--TODO:自定义列模板-->
-        <template #dddd="{  }">
-          <a href="http://showdoc.cqcflq.com/">文档地址</a>
-        </template>
-
         <template #ycs>
           <a-space>
             <a-button type="primary" @click="addEvent()">
@@ -169,19 +164,6 @@
                 <plus-outlined/>
               </template>
               <span>新建弹窗</span>
-            </a-button>
-
-            <a-button type="danger" @click="batchDeleteEvent()">
-              <template #icon>
-                <delete-outlined/>
-              </template>
-              <span>批量删除</span>
-            </a-button>
-            <a-button @click="gridOptions.sortConfig.multiple=!gridOptions.sortConfig.multiple">
-              <template #icon>
-                <upload-outlined/>
-              </template>
-              <span>{{ gridOptions.sortConfig.multiple === false ? '单' : '多' }}字段排序</span>
             </a-button>
           </a-space>
         </template>
@@ -229,7 +211,7 @@
 <script>
 import {defineComponent, reactive, ref, toRefs, provide} from 'vue'//, Ref
 import {VXETable} from 'vxe-table'//, VxeGridInstance, VxeGridProps
-import XEAjax from 'xe-ajax'
+
 import {PublisherService} from "@/views/cms/publisher/publisher/publisherService";
 import PublisherEdit
   from "@/views/cms/publisher/publisher/publisher-edit";
@@ -237,7 +219,7 @@ import PublisherDetail
   from "@/views/cms/publisher/publisher/publisher-detail";
 import {
   PlusOutlined,
-  DeleteOutlined,
+
   // DownOutlined,
   // UpOutlined,
 } from '@ant-design/icons-vue';
@@ -248,16 +230,13 @@ export default defineComponent({
   components: {
     PublisherEdit,
     PublisherDetail,
-    // DownOutlined,
-    DeleteOutlined,
     PlusOutlined,
-    // UpOutlined,
+
   },
   setup() {
     const router = useRouter();
     const publisherGrid = ref({})// as VxeGridInstance
     // 搜索表单是否展开
-    let searchExpand = ref(false)
     let proxyInfo = reactive({})
     const where = ref({})
     const eid = ref({})
@@ -299,18 +278,7 @@ export default defineComponent({
           {field: 'amount'}
         ]
       },
-      /*TODO:排序配置 */
-      sortConfig: {
-        trigger: 'cell',
-        remote: true,
-        multiple: true,//多字段排序，默认单排序
-        showIcon: true,
-        // iconAsc: "fa fa-arrow-up fa-1x",
-        // iconDesc: "fa fa-arrow-down fa-1x",
-      },
-      customConfig: {
-        storage: true
-      },
+
       /*TODO:过滤器配置*/
       filterConfig: {
         remote: true
@@ -324,9 +292,9 @@ export default defineComponent({
       toolbarConfig: {
         slots: {buttons: 'ycs'},
         refresh: true,
-        import: true,
-        export: true,
-        print: true,
+        // import: true,
+        // export: true,
+        // print: true,
         zoom: true,
         custom: true
       },
@@ -399,69 +367,7 @@ export default defineComponent({
         },
         {title: '操作', width: 250, slots: {default: 'operate'}}
       ],
-      /*TODO:导入配置*/
-      importConfig: {
-        remote: true,
-        types: ['xlsx'],
-        modes: ['insert'],
-        // 自定义服务端导入
-        importMethod({file}) {
-          const $grid = publisherGrid.value
-          const formBody = new FormData()
-          formBody.append('file', file)
-          return XEAjax.post('https://api.xuliangzhan.com:10443/demo/api/pub/import', formBody).then(data => {
-            VXETable.modal.message({content: `成功导入 ${data.result.insertRows} 条记录！`, status: 'success'})
-            // 导入完成，刷新表格
-            $grid.commitProxy('query')
-          }).catch(() => {
-            VXETable.modal.message({content: '导入失败，请检查数据是否正确！', status: 'error'})
-          })
-        }
-      },
-      /*TODO:导出配置*/
-      exportConfig: {
-        remote: true,
-        types: ['xlsx', 'csv', 'html', 'txt', 'pdf'],
-        modes: ['current', 'selected', 'all'],
-        // 自定义服务端导出
-        exportMethod({options}) {
-          const $grid = publisherGrid.value
-          const proxyInfo = $grid.getProxyInfo()
-          const queryParams = $grid.queryParams;
-          // 传给服务端的参数
-          const body = {
-            ...queryParams,
-            filename: options.filename,
-            sheetName: options.sheetName,
-            isHeader: options.isHeader,
-            original1: options.original,
-            mode: options.mode,
-            pager: proxyInfo ? proxyInfo.pager : null,
-            ids: options.mode === 'selected' ? options.data.map((item) => item.id) : [],
-            fields: '%7B%22field%22:%22nickname%22,%22title%22:%22Nickname%22%7D&fields[]=%7B%22field%22:%22sex%22ge%22,%22title%22:%22Age%22%7D&fimount%22,%22title%22:%22Amount%22%7D&fields[]=%7B%22field'
-          }
 
-          // 开始服务端导出
-          return PublisherService.findPublishersForExport(body).then(data => {
-            VXETable.modal.message({content: `成功${data}`, status: 'error'});
-            // if (data.id) {
-            // VXETable.modal.message({ content: '导出成功，开始下载', status: 'success' })
-            // // 读取路径，请求文件
-            // fetch(`https://api.xuliangzhan.com:10443/demo/api/pub/export/download/\${data.id}`).then(response => {
-            //   response.blob().then(blob => {
-            //     // 开始下载
-            //     VXETable.saveFile({ filename: '导出数据', type: 'xlsx', content: blob })
-            //   })
-            // })
-            // }
-          }).catch(error => {
-            VXETable.modal.message({content: `导出失败，原因是：${error.message}`, status: 'error'});
-
-          })
-        }
-
-
-      },
       /*TODO:复选框配置*/
       checkboxConfig: {
         labelField: 'eid',
@@ -469,19 +375,7 @@ export default defineComponent({
         highlight: false,
         range: true
       },
-      /*TODO:编辑验证*/
-      editRules: {
-        name: [
-          {required: true, message: 'app.body.valid.rName'},
-          {min: 3, max: 50, message: '名称长度在 3 到 50 个字符'}
-        ],
-        email: [
-          {required: true, message: '邮件必须填写'}
-        ],
-        role: [
-          {required: true, message: '角色必须填写'}
-        ]
-      },
+
       editConfig: {
         trigger: 'click',
         mode: 'row',
@@ -559,7 +453,6 @@ export default defineComponent({
       publisherGrid,
       // editModal,
       gridOptions,
-      searchExpand,
       addEvent,
       editEvent,
       viewEvent,

@@ -1,11 +1,11 @@
 package com.mt.cms.dao.publisher;
 
-import com.mt.common.core.web.base.PageDTO;
-import com.mt.common.core.web.base.PageResultDTO;
 import com.mt.cms.entity.publisher.Publisher;
+import com.mt.common.core.web.base.PageDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Mapper
@@ -25,25 +25,6 @@ public interface PublisherDao {
     */
     public List<Publisher> findAllPublishers();
 
-    /**
-    * 查询所有发布者信息集合(只提取ID 和 Name)
-    *
-    */
-    public List<Publisher> findAllPublishersWithIdName();
-
-    /**
-    * 根据名称查询发布者信息集合(只提取ID 和 Name)
-    *
-    * @param publisherName 名称
-    */
-    public List<Publisher> findPublishersWithIdNameByName(@Param("publisherName") String publisherName);
-
-    /**
-    * 根据ID查询指定的发布者信息(只提取ID 和 Name)
-    *
-    * @param publisherId Id
-    */
-    public Publisher findPublishersWithIdNameById(@Param(" publisherId") Long publisherId);
 
     /**
     * 根据分页参数查询发布者信息集合的数量
@@ -59,12 +40,7 @@ public interface PublisherDao {
     */
     public Publisher findPublisher(@Param("publisherId") Long publisherId);
 
-    /**
-    * 根据ID查询指定的发布者信息(包含外键)
-    *
-    * @param publisherId Id
-    */
-    public Publisher findPublisherWithForeignName(@Param("publisherId") Long publisherId);
+
 
     /**
     * 新增发布者信息
@@ -86,4 +62,6 @@ public interface PublisherDao {
     * @param publisherId ID
     */
     public Long deletePublisher(@Param("publisherId") Long publisherId);
+
+    Publisher findPublisherByName(String nickname);
 }

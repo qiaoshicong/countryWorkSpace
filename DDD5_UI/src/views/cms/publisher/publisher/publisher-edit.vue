@@ -12,17 +12,18 @@
 
           <a-col :lg="6" :md="12" :sm="24" :xs="24">
             <a-form-item label="姓名:" name="name" :rules="{ required: true }">
-                            <a-input
-                              v-model:value="publisherModalApp.publisher.name"
-                              placeholder="请输入姓名"
-                              :maxlength="255"
-                              allow-clear
-                            />
-                          </a-form-item>
+              <a-input
+                v-model:value="publisherModalApp.publisher.name"
+                placeholder="请输入姓名"
+                :maxlength="255"
+                allow-clear
+              />
+            </a-form-item>
           </a-col>
 
           <a-col :md="8">
-            <a-form-item label="联系电话:" name="phone" :rules="{ required: true, pattern: /^1[3-9]\d{9}$/,message:'手机格式不正确'  }">
+            <a-form-item label="联系电话:" name="phone"
+                         :rules="{ required: true, pattern: /^1[3-9]\d{9}$/,message:'手机格式不正确'  }">
               <a-input
                 v-model:value="publisherModalApp.publisher.phone"
                 placeholder="请输入联系电话"
@@ -217,7 +218,7 @@ export default defineComponent({
     /*TODO:返回列表*/
     const onBack = () => {
       router.push(`/cms/publisher/publisher`);
-      publisherListApp.editModalShowing=false;
+      publisherListApp.editModalShowing = false;
       publisherListApp.tableRefresh();
       store.dispatch('user/tabRemove', route.fullPath);
 

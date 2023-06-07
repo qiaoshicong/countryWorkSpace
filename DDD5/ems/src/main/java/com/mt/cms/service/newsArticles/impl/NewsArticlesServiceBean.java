@@ -6,6 +6,7 @@ import com.mt.cms.dao.publisher.PublisherDao;
 import com.mt.cms.entity.newsArticles.NewsArticles;
 import com.mt.cms.service.newsArticles.NewsArticlesService;
 import com.mt.common.core.exception.BusinessException;
+import com.mt.common.core.security.LoginUser;
 import com.mt.common.core.web.BaseService;
 import com.mt.common.core.web.base.BaseEntity;
 import com.mt.common.core.web.base.PageDTO;
@@ -17,12 +18,17 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.*;
-import java.util.concurrent.TimeUnit;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 @Service
 @Transactional
@@ -47,6 +53,10 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
 
+	/**
+	 * 查询全部新闻文章
+	 * @return
+	 */
 	@Override
 	public List<NewsArticles> findAllNewsArticlessMy(){
 		List<NewsArticles> newsArticlesDTOS = this.newsArticlesDao.findNewsArticlessMy();
@@ -61,15 +71,13 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 	public PageResultDTO findNewsArticless(PageDTO pageDTO){
         pageDTO.setStartIndex((pageDTO.getCurrentPage()-1)*pageDTO.getPageSize());
 
-//		this.validateFindNewsArticless(pageDTO);
 		List<NewsArticles> newsArticlesDTOS = this.newsArticlesDao.findNewsArticless(pageDTO);
 		Long totalCount = this.newsArticlesDao.findNewsArticlesTotalCount(pageDTO);
 
+		//在查询新闻类别表中根据id查询名称，存入新闻文章表中
 		newsArticlesDTOS.stream().forEach(newsArticles -> {
 			if(Objects.nonNull(newsArticles.getCategoryId())) {
 				String categoryName = newsCategoryDao.findNewsCategorysWithNameById(Long.valueOf(newsArticles.getCategoryId())).getName();
-//				String publisherName = publisherDao.findPublisher(newsArticles.getPublisherNameId()).getName();
-//				newsArticles.setPublisherNameName(publisherName);
 				newsArticles.setCategoryName(categoryName);
 			}
 			if(Objects.isNull(newsArticles.getThumbnail())){
@@ -100,72 +108,16 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 	}
 
 	/**
-	 * 查询所有新闻文章集合(只提取ID 和 Name)
-	 *
-	 */
-	@Override
-	public List<NewsArticles> findAllNewsArticlessWithIdName(){
-		//TODO:请在此校验参数的合法性
-		this.validateFindAllNewsArticlessWithIdName();
-		return this.newsArticlesDao.findAllNewsArticlessWithIdName();
-	}
-
-	/**
-	 * 根据名称查询新闻文章集合(只提取ID 和 Name)
-	 *
-	 * @param newsArticlesName 名称
-	 */
-	@Override
-	public List<NewsArticles> findNewsArticlessWithIdNameByName(String newsArticlesName){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsArticlessWithIdNameByName(newsArticlesName);
-		//TODO:缓存取对应参数
-		Set<String> keys = stringRedisTemplate.keys("searchData:NewsArticles_where_newsArticlesName_" + newsArticlesName);
-		List<NewsArticles> newsArticless = new ArrayList<>();
-		if (keys.isEmpty()) {
-		newsArticless = this.newsArticlesDao.findNewsArticlessWithIdNameByName(newsArticlesName);
-		redisTemplate.opsForValue().set("searchData:NewsArticles_where_newsArticlesName_" + newsArticlesName, newsArticless, 30, TimeUnit.DAYS);
-		} else {
-		newsArticless = redisTemplate.opsForValue().get("searchData:NewsArticles_where_newsArticlesName_" + newsArticlesName);
-		}
-		return newsArticless;
-	}
-
-	/**
-	 * 根据ID查询指定的新闻文章(只提取ID 和 Name)
-	 *
-	 * @param newsArticlesId Id
-	 */
-	@Override
-	public NewsArticles findNewsArticlessWithIdNameById(Long newsArticlesId){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsArticlessWithIdNameById(newsArticlesId);
-		return this.newsArticlesDao.findNewsArticlessWithIdNameById(newsArticlesId);
-	}
-
-	/**
 	 * 根据ID查询指定的新闻文章
 	 *
 	 * @param newsArticlesId Id
 	 */
 	@Override
 	public NewsArticles findNewsArticles(Long newsArticlesId){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsArticles(newsArticlesId);
+
 		return this.newsArticlesDao.findNewsArticles(newsArticlesId);
 	}
 
-	/**
-	 * 根据ID查询指定的新闻文章(包含外键)
-	 *
-	 * @param newsArticlesId Id
-	 */
-	@Override
-	public NewsArticles findNewsArticlesWithForeignName(Long newsArticlesId){
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsArticlesWithForeignName(newsArticlesId);
-		return this.newsArticlesDao.findNewsArticlesWithForeignName(newsArticlesId);
-	}
 
 	/**
 	 * 新增新闻文章
@@ -173,11 +125,20 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 	 * @param newsArticles 实体对象
 	 */
 	@Override
-	public NewsArticles saveNewsArticles(NewsArticles newsArticles){
-		//TODO:请在此校验参数的合法性
-		this.validateSaveNewsArticles(newsArticles);
-		//TODO:填充公共参数
-		this.setSavePulicColumns(newsArticles);
+	public NewsArticles saveNewsArticles(NewsArticles newsArticles) throws ParseException {
+		//获取 当前用户姓名存入数据库
+		LoginUser user = (LoginUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//		User user =  JSON.parseObject(JSON.parse(principal).toString(), User.class);
+		String nickname = user.getNickname();
+		Long eid = publisherDao.findPublisherByName(nickname).getEid();
+		newsArticles.setPublisherNameId(eid);
+
+		//获取当前时间并存入数据库（新闻发布时间）
+		java.util.Date day=new Date();
+		SimpleDateFormat sdf= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String format = sdf.format(day);
+		Date date = sdf.parse(format);
+		newsArticles.setCreateDatetime(date);
 		Long rows = this.newsArticlesDao.saveNewsArticles(newsArticles);
 		if(rows != 1)
 		{
@@ -194,8 +155,7 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 	 */
 	@Override
 	public NewsArticles updateNewsArticles(NewsArticles newsArticles){
-		//TODO:请在此校验参数的合法性
-		this.validateUpdateNewsArticles(newsArticles);
+
 		Long rows = this.newsArticlesDao.updateNewsArticles(newsArticles);
 		if(rows != 1)
 		{
@@ -212,8 +172,6 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 	 */
 	@Override
 	public void deleteNewsArticles(Long newsArticlesId){
-		//TODO:请在此校验参数的合法性
-		this.validateDeleteNewsArticles(newsArticlesId);
 
 		Map<Class<? extends BaseEntity>,EntityUsage> entityUsageMap = this.checkForeignEntity(NewsArticles.class, newsArticlesId);
 		if(entityUsageMap != null && entityUsageMap.size() >0){
@@ -236,34 +194,17 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 		}
 	}
 
-	//TODO:---------------验证-------------------
+	/**
+	 * 根据ID查询指定的新闻文章(包含外键)
+	 *
+	 * @param newsArticlesId Id
+	 */
+	@Override
+	public NewsArticles findNewsArticlesWithForeignName(Long newsArticlesId){
 
-	private void validateFindNewsArticless(PageDTO pageDTO) {
-	//TODO:请使用下面方法添加数据过滤条件
-//			pageDTO.addFilter("creatorId",this.getLoginUserId());
-	//TODO:请完善数据校验规则和数据权限判断，如果有问题请抛出异常，参看下面validateUpdateNewsArticles()写法
+		return this.newsArticlesDao.findNewsArticlesWithForeignName(newsArticlesId);
 	}
 
-	private void validateFindNewsArticlessWithIdNameByName(String newsArticlesName) {
-	//TODO:请完善数据校验规则和数据权限判断，如果有问题请抛出异常，参看下面validateUpdateNewsArticles()写法
-	}
-
-
-	private void validateFindAllNewsArticlessWithIdName() {
-	//TODO:请完善数据校验规则和数据权限判断，如果有问题请抛出异常，参看下面validateUpdateNewsArticles()写法
-	}
-
-	private void validateFindNewsArticlessWithIdNameById(Long newsArticlesId) {
-	//TODO:请完善数据校验规则和数据权限判断，如果有问题请抛出异常，参看下面validateUpdateNewsArticles()写法
-	}
-
-	private void validateFindNewsArticles(Long newsArticlesId) {
-	//TODO:请完善数据校验规则和数据权限判断，如果有问题请抛出异常，参看下面validateUpdateNewsArticles()写法
-	}
-
-	private void validateFindNewsArticlesWithForeignName(Long newsArticlesId) {
-	//TODO:请完善数据校验规则和数据权限判断，如果有问题请抛出异常，参看下面validateUpdateNewsArticles()写法
-	}
 
 	private void validateSaveNewsArticles(NewsArticles newsArticles) {
 	//不为空判断
@@ -285,12 +226,10 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 	//TODO:请完善数据校验规则和数据权限判断，如果有问题请抛出异常，参看下面validateUpdateNewsArticles()写法
 	}
 
-	private void validateDeleteNewsArticles(Long newsArticlesId) {
-	//TODO:请完善数据校验规则和数据权限判断，如果有问题请抛出异常，参看下面validateUpdateNewsArticles()写法
-	}
-
 	@Override
 	public boolean canDownloadAttachment(String formName, Long id) {
-	return true;
+		return false;
 	}
+
+
 }

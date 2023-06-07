@@ -20,25 +20,6 @@ public interface PublisherService {
      */
     public List<Publisher> findAllPublishers();
 
-    /**
-     * 根据名称查询发布者信息集合(只提取ID 和 Name)
-     *
-     * @param publisherName 名称
-     */
-    public List<Publisher> findPublishersWithIdNameByName(String publisherName);
-
-    /**
-     * 查询所有发布者信息集合(只提取ID 和 Name)
-     *
-     */
-    public List<Publisher> findAllPublishersWithIdName();
-
-    /**
-     * 根据ID查询指定的发布者信息(只提取ID 和 Name)
-     *
-     * @param publisherId Id
-     */
-    public Publisher findPublishersWithIdNameById(Long publisherId);
 
     /**
      * 根据ID查询指定的发布者信息
@@ -47,12 +28,6 @@ public interface PublisherService {
      */
     public Publisher findPublisher(Long publisherId);
 
-    /**
-     * 根据ID查询指定的发布者信息(包含外键)
-     *
-     * @param publisherId Id
-     */
-    public Publisher findPublisherWithForeignName(Long publisherId);
 
     /**
      * 新增发布者信息

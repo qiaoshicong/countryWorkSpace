@@ -443,33 +443,7 @@
     <select id="findNewsArticlessMy" resultType="com.mt.cms.entity.newsArticles.NewsArticles">
         SELECT * FROM `cms_news_articles` ORDER BY create_datetime DESC
     </select>
-    <!-- 根据名称查询数据集合,只提取ID 和 Name -->
-    <select id="findNewsArticlessWithIdNameByName" resultType="com.mt.cms.entity.newsArticles.NewsArticles"
-            parameterType="java.lang.String">
-        select t0.eid,
-               t0.name
-        from cms_news_articles t0
-        where t0.name like '%${newsArticlesName}%'
-        ORDER BY t0.name
-    </select>
 
-
-    <!-- 查询所有数据集合,只提取ID 和 Name -->
-    <select id="findAllNewsArticlessWithIdName" resultType="com.mt.cms.entity.newsArticles.NewsArticles">
-        select t0.eid,
-               t0.name
-        from cms_news_articles t0
-        ORDER BY t0.name
-    </select>
-
-    <!-- 查询指定的实体,只提取ID 和 Name -->
-    <select id="findNewsArticlessWithIdNameById" resultType="com.mt.cms.entity.newsArticles.NewsArticles"
-            parameterType="java.lang.Long">
-        select t0.eid,
-               t0.name
-        from cms_news_articles t0
-        where eid = #{newsArticlesId}
-    </select>
 
     <!--  根据Id查询 -->
     <select id="findNewsArticles" resultType="com.mt.cms.entity.newsArticles.NewsArticles"
@@ -478,38 +452,34 @@
         from cms_news_articles
         where eid = #{newsArticlesId}
     </select>
-
     <!-- 根据ID查询指定的实体(包含外键) -->
-    <select id="findNewsArticlesWithForeignName" resultType="com.mt.cms.entity.newsArticles.NewsArticles"
-            parameterType="java.lang.Long">
-        select t0.eid,
-               t0.creator_name,
-               t0.name,
-               t0.title,
-               t0.summary,
-               t0.context,
-               t0.category_id,
-               t0.thumbnail,
-               t0.comment_num,
-               t0.view_num,
-               t0.thumb_num,
-               t0.collect_num,
-               t0.news_type,
-               t0.status,
-               t0.is_top,
-               t0.publisher_name_id,
-               t0.creator_id,
-               t0.remark,
-               t0.create_datetime
-                ,
-               t15.name as publisher_name_name
+    <select id="findNewsArticlesWithForeignName" resultType="com.mt.cms.entity.newsArticles.NewsArticles" parameterType="java.lang.Long">
+        select
+            t0.eid  ,
+            t0.creator_name  ,
+            t0.name  ,
+            t0.title  ,
+            t0.summary  ,
+            t0.context  ,
+            t0.category_id  ,
+            t0.thumbnail  ,
+            t0.comment_num  ,
+            t0.view_num  ,
+            t0.thumb_num  ,
+            t0.collect_num  ,
+            t0.news_type  ,
+            t0.status  ,
+            t0.is_top  ,
+            t0.publisher_name_id  ,
+            t0.creator_id  ,
+            t0.remark  ,
+            t0.create_datetime
+                ,t15.name as publisher_name_name
 
         from cms_news_articles t0
-                 LEFT JOIN cms_publisher t15 on t0.publisher_name_id = t15.eid
+                 LEFT JOIN cms_publisher t15 on t0.publisher_name_id =t15.eid
         where t0.eid = #{newsArticlesId}
     </select>
-
-
 
     <!--  保存 -->
     <insert id="saveNewsArticles" parameterType="com.mt.cms.entity.newsArticles.NewsArticles" useGeneratedKeys="true">
