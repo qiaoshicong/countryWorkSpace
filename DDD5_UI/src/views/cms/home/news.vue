@@ -45,7 +45,7 @@ onMounted,
 <style scoped>
 
 .box{
-  background: #e1ead3;
+  background: #f6f0e8;
   width: 850px;
   margin: 5px auto;
   padding: 10px 25px 15px ;

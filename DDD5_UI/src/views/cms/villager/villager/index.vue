@@ -221,7 +221,7 @@ export default defineComponent({
       customConfig: {
         storage: true
       },
-      /*TODO:过滤器配置*/
+      /*过滤器配置*/
       filterConfig: {
         remote: true
       },
@@ -323,11 +323,11 @@ export default defineComponent({
         mode: 'row',
         showStatus: true
       }
-    })//as VxeGridProps
+    })
     provide('villagerListApp', villagerListApp)
     provide('gridOptions', gridOptions)
 
-    /*TODO:新建事件*/
+    /*新建事件*/
     const addEvent = () => {
       villagerListApp.editModalShowing = true
       villagerListApp.currentId = null;
@@ -335,7 +335,7 @@ export default defineComponent({
       gridOptions.showEditTitle = "新建";
     }
 
-    /*TODO:编辑事件*/
+    /*编辑事件*/
     const editEvent = (row) => {
       villagerListApp.editModalShowing = true
       villagerListApp.currentId = row.eid;
@@ -343,20 +343,20 @@ export default defineComponent({
       gridOptions.showEditTitle = "编辑";
     }
 
-    /*TODO:编辑关闭事件*/
+    /*编辑关闭事件*/
     const editEventClose = () => {
       console.log(gridOptions.formData);
       VXETable.modal.message({content: '提交成功', status: 'success'})
     }
 
-    /*TODO:查看事件*/
+    /*查看事件*/
     const viewEvent = (row) => {
       villagerListApp.currentId = row.eid;
       villagerListApp.viewModalShowing = true
       gridOptions.showDetailsTitle = '查看';
     }
 
-    /*TODO:删除事件*/
+    /*删除事件*/
     const deleteEvent = (row) => {
       VillagerService.deleteVillager(row.eid).then(() => {
         VXETable.modal.message({content: '操作成功', status: 'success'})
@@ -365,19 +365,19 @@ export default defineComponent({
       })
     }
 
-    /*TODO:条件查询提交*/
+    /*条件查询提交*/
     const reload = () => {
       const $grid = villagerGrid.value
       $grid.commitProxy('query')//TODO:执行代理方法
     }
-    /*TODO:重置搜索*/
+    /*重置搜索*/
     const reset = () => {
       where.value = {}
       const $grid = villagerGrid.value
       $grid.commitProxy('query')//TODO:执行代理方法
     }
 
-    //TODO:这里需要返回才能调用
+    //这里需要返回才能调用
     return {
       eid,
       villagerGrid,

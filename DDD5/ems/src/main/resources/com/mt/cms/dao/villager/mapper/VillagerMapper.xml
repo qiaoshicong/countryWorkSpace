@@ -8,202 +8,44 @@
         from cms_villager t0
         <where>
             <if test="filters!=null">
-                <if test="filters.Eid!=null">
-                    <if test="filterTypes.Eid=='单值'">
 
-                        AND t0.eid = #{filters.Eid}
-
-                    </if>
-                    <if test="filterTypes.Eid=='模糊'">
-
-                        AND t0.eid LIKE '%${filters.Eid}%'
-
-                    </if>
-                    <if test="filterTypes.Eid=='数组'">
-                        AND t0.eid in
-                        <foreach collection="filters.Eid" item="item" index="index" open="(" separator="," close=")">
-                            #{item}
-                        </foreach>
-                    </if>
-                </if>
-                <if test="filters.creatorName!=null">
-                    <if test="filterTypes.creatorName=='单值'">
-
-                        AND t0.creator_name LIKE '%${filters.creatorName}%'
-
-                    </if>
-                    <if test="filterTypes.creatorName=='模糊'">
-
-                        AND t0.creator_name LIKE '%${filters.creatorName}%'
-
-                    </if>
-                    <if test="filterTypes.creatorName=='数组'">
-                        AND t0.creator_name in
-                        <foreach collection="filters.creatorName" item="item" index="index" open="(" separator=","
-                                 close=")">
-                            '#{item}'
-                        </foreach>
-
-                    </if>
-                </if>
                 <if test="filters.name!=null">
                     <if test="filterTypes.name=='单值'">
-
                         AND t0.name LIKE '%${filters.name}%'
-
                     </if>
                     <if test="filterTypes.name=='模糊'">
-
                         AND t0.name LIKE '%${filters.name}%'
-
-                    </if>
-                    <if test="filterTypes.name=='数组'">
-                        AND t0.name in
-                        <foreach collection="filters.name" item="item" index="index" open="(" separator="," close=")">
-                            '#{item}'
-                        </foreach>
-
                     </if>
                 </if>
                 <if test="filters.age!=null">
                     <if test="filterTypes.age=='单值'">
-
                         AND t0.age = #{filters.age}
-
                     </if>
                     <if test="filterTypes.age=='模糊'">
-
                         AND t0.age LIKE '%${filters.age}%'
-
-                    </if>
-                    <if test="filterTypes.age=='数组'">
-                        AND t0.age in
-                        <foreach collection="filters.age" item="item" index="index" open="(" separator="," close=")">
-                            #{item}
-                        </foreach>
-                    </if>
                 </if>
                 <if test="filters.gender!=null">
                     <if test="filterTypes.gender=='单值'">
-
                         AND t0.gender LIKE '%${filters.gender}%'
-
                     </if>
                     <if test="filterTypes.gender=='模糊'">
-
                         AND t0.gender LIKE '%${filters.gender}%'
-
-                    </if>
-                    <if test="filterTypes.gender=='数组'">
-                        AND t0.gender in
-                        <foreach collection="filters.gender" item="item" index="index" open="(" separator="," close=")">
-                            '#{item}'
-                        </foreach>
-
                     </if>
                 </if>
                 <if test="filters.phoneNumber!=null">
                     <if test="filterTypes.phoneNumber=='单值'">
-
                         AND t0.phone_number LIKE '%${filters.phoneNumber}%'
-
                     </if>
                     <if test="filterTypes.phoneNumber=='模糊'">
-
                         AND t0.phone_number LIKE '%${filters.phoneNumber}%'
-
-                    </if>
-                    <if test="filterTypes.phoneNumber=='数组'">
-                        AND t0.phone_number in
-                        <foreach collection="filters.phoneNumber" item="item" index="index" open="(" separator=","
-                                 close=")">
-                            '#{item}'
-                        </foreach>
-
                     </if>
                 </if>
                 <if test="filters.address!=null">
                     <if test="filterTypes.address=='单值'">
-
                         AND t0.address LIKE '%${filters.address}%'
-
                     </if>
                     <if test="filterTypes.address=='模糊'">
-
                         AND t0.address LIKE '%${filters.address}%'
-
-                    </if>
-                    <if test="filterTypes.address=='数组'">
-                        AND t0.address in
-                        <foreach collection="filters.address" item="item" index="index" open="(" separator=","
-                                 close=")">
-                            '#{item}'
-                        </foreach>
-
-                    </if>
-                </if>
-                <if test="filters.status!=null">
-                    <if test="filterTypes.status=='单值'">
-
-                        AND t0.status LIKE '%${filters.status}%'
-
-                    </if>
-                    <if test="filterTypes.status=='模糊'">
-
-                        AND t0.status LIKE '%${filters.status}%'
-
-                    </if>
-                    <if test="filterTypes.status=='数组'">
-                        AND t0.status in
-                        <foreach collection="filters.status" item="item" index="index" open="(" separator="," close=")">
-                            '#{item}'
-                        </foreach>
-
-                    </if>
-                </if>
-                <if test="filters.creatorId!=null">
-                    <if test="filterTypes.creatorId=='单值'">
-
-                        AND t0.creator_id = #{filters.creatorId}
-
-                    </if>
-                    <if test="filterTypes.creatorId=='模糊'">
-
-                        AND t0.creator_id LIKE '%${filters.creatorId}%'
-
-                    </if>
-                    <if test="filterTypes.creatorId=='数组'">
-                        AND t0.creator_id in
-                        <foreach collection="filters.creatorId" item="item" index="index" open="(" separator=","
-                                 close=")">
-                            #{item}
-                        </foreach>
-                    </if>
-                </if>
-                <if test="filters.remark!=null">
-                    <if test="filterTypes.remark=='单值'">
-                        AND t0.remark LIKE '%${filters.remark}%'
-                    </if>
-                    <if test="filterTypes.remark=='模糊'">
-
-                        AND t0.remark LIKE '%${filters.remark}%'
-
-                    </if>
-                    <if test="filterTypes.remark=='数组'">
-                        AND t0.remark in
-                        <foreach collection="filters.remark" item="item" index="index" open="(" separator="," close=")">
-                            '#{item}'
-                        </foreach>
-                    </if>
-                </if>
-                <if test="filters.createDatetime!=null">
-                    <if test="filterTypes.createDatetime=='单值'">
-                    </if>
-                    <if test="filterTypes.createDatetime=='模糊'">
-
-                        AND t0.create_datetime LIKE '%${filters.createDatetime}%'
-                    </if>
-                    <if test="filterTypes.createDatetime=='数组'">
                     </if>
                 </if>
             </if>
