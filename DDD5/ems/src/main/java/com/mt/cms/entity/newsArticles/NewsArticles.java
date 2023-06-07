@@ -1,23 +1,23 @@
 package com.mt.cms.entity.newsArticles;
 
-import javax.persistence.*;
-import java.io.Serializable;
+import com.mt.cms.entity.publisher.Publisher;
 import com.mt.common.core.annotation.DColumn;
 import com.mt.common.core.annotation.DEntity;
 import com.mt.common.core.web.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
 
+import javax.persistence.*;
+import java.io.Serializable;
 
-
-import com.mt.cms.entity.publisher.Publisher;
-
+@Data
 @DEntity(label="新闻文章",comment="",moduleLabel="新闻文章列表")
 @Entity(name="cms_news_articles")
 @Table(name = "cms_news_articles" , indexes = { @Index(name = "index_publisher_name_id", columnList = "publisher_name_id")  })
 @ApiModel(description = "新闻文章:")
 public class NewsArticles extends BaseEntity implements Serializable{
-	private static final long serialVersionUID = 1L;
+	private   static final long serialVersionUID = 1L;
 
 	@DColumn(index=3,label="新闻标题",comment="新闻标题",component="文本",where=false)
 	@ApiModelProperty(value = "新闻标题:新闻标题")
@@ -92,6 +92,8 @@ public class NewsArticles extends BaseEntity implements Serializable{
 	@DColumn(index=15,label="作者姓名",foreignEntity="Publisher",comment="作者姓名")
 	private String publisherNameName;
 
+	@Transient
+	private  String categoryName;
 
 	public String getTitle() {
 		return this.title;

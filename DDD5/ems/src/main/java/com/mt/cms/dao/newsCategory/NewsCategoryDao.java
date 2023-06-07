@@ -64,4 +64,6 @@ public interface NewsCategoryDao {
     * @param newsCategoryId ID
     */
     public Long deleteNewsCategory(@Param("newsCategoryId") Long newsCategoryId);
+
+   public NewsCategory findNewsCategorysWithNameById(Long categoryId);
 }

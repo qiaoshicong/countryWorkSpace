@@ -2,19 +2,23 @@
 
 package com.mt.cms.controller.newsCategory;
 
+import org.springframework.security.access.prepost.PreAuthorize;
+import com.mt.common.core.annotation.ApiPageParam;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import com.mt.common.core.web.base.PageDTO;
+import com.mt.common.core.web.base.PageResultDTO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
+
 import com.mt.cms.dto.newsCategory.NewsCategoryEditDto;
 import com.mt.cms.entity.newsCategory.NewsCategory;
 import com.mt.cms.service.newsCategory.NewsCategoryService;
-import com.mt.common.core.annotation.ApiPageParam;
-import com.mt.common.core.web.base.PageDTO;
-import com.mt.common.core.web.base.PageResultDTO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
 							
 
 @Api(tags = "新闻类别")
@@ -66,6 +70,46 @@ private static Logger logger = LoggerFactory.getLogger(NewsCategoryController.cl
 		return this.newsCategoryService.findNewsCategoryWithForeignName(newsCategoryId);
 	}
 
+	/**
+	* 根据ID查询指定的新闻类别(包含新闻类别和外键名称)
+	*
+	* @param newsCategoryId Id
+	*/
+	@PreAuthorize("hasAuthority('cms:newsCategory:NewsCategory:view')")
+	@ApiOperation("根据ID查询指定的新闻类别(包含新闻类别和外键名称)")
+	@PostMapping("/findNewsCategoryForEdit")
+	public NewsCategoryEditDto findNewsCategoryForEdit(@RequestParam Long newsCategoryId){
+				NewsCategoryEditDto newsCategoryEditDto = new NewsCategoryEditDto();
+		newsCategoryEditDto.setNewsCategory(this.newsCategoryService.findNewsCategoryWithForeignName(newsCategoryId));
+
+		this.prepareNewsCategoryEditDto(newsCategoryEditDto);
+
+		return newsCategoryEditDto;
+	}
+
+	/**
+	* 根据ID查询指定的新闻类别(只提取ID 和 Name)
+	*
+	* @param newsCategoryId Id
+	*/
+	@PreAuthorize("hasAuthority('cms:newsCategory:NewsCategory:view')")
+	@ApiOperation("根据ID查询指定的新闻类别(只提取ID 和 Name)")
+	@PostMapping("/findNewsCategorysWithIdNameById")
+	public NewsCategory findNewsCategorysWithIdNameById(@RequestParam Long newsCategoryId){
+	return this.newsCategoryService.findNewsCategorysWithIdNameById(newsCategoryId);
+	}
+
+	/**
+	* 根据名称查询新闻类别集合(只提取ID 和 Name)
+	*
+	* @param newsCategoryName 名称
+	*/
+	@PreAuthorize("hasAuthority('cms:newsCategory:NewsCategory:view')")
+	@ApiOperation("根据名称查询新闻类别集合(只提取ID 和 Name)")
+	@PostMapping("/findNewsCategorysWithIdNameByName")
+	public List<NewsCategory> findNewsCategorysWithIdNameByName(@RequestParam String newsCategoryName){
+	return this.newsCategoryService.findNewsCategorysWithIdNameByName(newsCategoryName);
+	}
 
 
 	/**

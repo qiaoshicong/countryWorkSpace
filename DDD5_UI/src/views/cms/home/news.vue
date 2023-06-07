@@ -1,7 +1,5 @@
 <template>
-<h1>news</h1>
   <div class='box'>
-    <!-- <p>{{ this.$route.query.id }}</p> -->
     <div class='header'>
       <h2>{{ newsObject.title }}</h2>
       <p>发布日期：{{ newsObject.createDatetime }}  </p>
@@ -36,8 +34,6 @@ export default defineComponent({
         newsObject.title = res.data.title
       })
     })
-
-
     return{
 onMounted,
     newsObject
@@ -47,9 +43,11 @@ onMounted,
 </script>
 
 <style scoped>
-.box{
 
+.box{
+  background: #e1ead3;
   width: 850px;
-  margin: 0 auto;
+  margin: 5px auto;
+  padding: 10px 25px 15px ;
 }
 </style>

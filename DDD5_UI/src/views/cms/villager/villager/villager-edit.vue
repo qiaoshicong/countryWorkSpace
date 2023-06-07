@@ -67,7 +67,6 @@
 
           <a-col :md="12" :sm="24" :xs="24">
             <a-form-item :wrapper-col="{md: {offset: 6}}" style="margin-bottom: -20px">
-              <!--class="ele-pull-right"-->
               <div v-if="villagerModalApp.display">
                 <teleport to="#villagerEditModalFooter">
                   <div>
@@ -79,11 +78,6 @@
                         @click="onSubmit(villagerModalApp.villager)"
                         :loading="loading">提交
                       </a-button>
-                      <!--<a-button v-if="!eid"
-                                type="dashed"
-                                @click="continueSubmit"
-                                :loading="loading">继续提交
-                      </a-button>-->
                     </a-space>
                   </div>
                 </teleport>
@@ -96,11 +90,6 @@
                     @click="onSubmit(villagerModalApp.villager)"
                     :loading="loading">提交
                   </a-button>
-                  <!--<a-button v-if="!eid"
-                            type="dashed"
-                            @click="continueSubmit"
-                            :loading="loading">继续提交
-                  </a-button>-->
                 </a-space>
               </div>
 
@@ -109,9 +98,7 @@
         </a-row>
       </a-form>
     </a-card>
-
   </div>
-
 </template>
 
 <script>
@@ -195,16 +182,12 @@ export default defineComponent({
     const findVillager = (id) => {
       VillagerService.findVillagerForView(id).then((res) => {
         villagerModalApp.villager = res.data;
-        //TODO:为编辑准备.
         villagerModalApp.title = "编辑学生 " + villagerModalApp.villager.name;
       }).catch(error => {
         VXETable.modal.message({content: `查找学生出错，原因是：${error.message}`, status: 'error'});
       })
     }
-
-    /*TODO:提交 新增&编辑*/
     const onSubmit = (data) => {
-      // debugger;
       //当为数组时用逗号连接
       if (data.eid) {
         //修改
@@ -226,8 +209,6 @@ export default defineComponent({
         })
       }
     }
-
-    /*TODO:继续提交*/
     const continueSubmit = () => {
       VXETable.modal.message({content: 'error 提示', status: 'error'});
     }

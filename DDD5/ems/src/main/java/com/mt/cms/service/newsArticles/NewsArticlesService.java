@@ -7,6 +7,8 @@ import com.mt.cms.entity.newsArticles.NewsArticles;
 import java.util.List;
 
 public interface NewsArticlesService {
+    List<NewsArticles> findAllNewsArticlessMy();
+
     /**
      * 根据分页参数查询新闻文章集合
      *

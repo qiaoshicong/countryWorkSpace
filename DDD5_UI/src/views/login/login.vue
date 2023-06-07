@@ -173,7 +173,7 @@ export default {
           this.loading = false;
           if (res.data.code === 0) {
             this.$message.success('登录成功');
-            // console.log("usertype===>" + res.data.userType);
+            console.log("usertype===>" + res.data.userType);
 
             this.$store.dispatch('user/setToken', {
               token: res.data.access_token,

@@ -16,15 +16,6 @@
 <!--        <Button type="danger"  @click="handleSelect(item.id)">{{item.name}}</Button>-->
       </a-col>
     </a-row>
-    <!-- 主页导航栏 -->
-<!--    <el-row>-->
-<!--      <el-menu mode='horizontal' class='menu'-->
-<!--               active-text-color='#000000' :default-active='activeIndex' @select='handleSelect'>-->
-<!--        <el-menu-item :key='index' v-for='(item, index) in menuList' :index='item.id.toString()'>-->
-<!--          {{ item.name }}-->
-<!--        </el-menu-item>-->
-<!--      </el-menu>-->
-<!--    </el-row>-->
     <el-container>
       <!-- 更变的内容区域 -->
       <el-main class='main'>
