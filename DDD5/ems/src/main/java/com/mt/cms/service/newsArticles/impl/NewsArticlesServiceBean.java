@@ -1,27 +1,28 @@
 package com.mt.cms.service.newsArticles.impl;
 
 import com.mt.cms.dao.newsArticles.NewsArticlesDao;
-
-import com.mt.common.core.exception.BusinessException;
-import com.mt.common.core.web.base.PageDTO;
-import com.mt.common.core.web.base.PageResultDTO;
-import com.mt.common.core.web.base.BaseEntity;
-import com.mt.common.core.web.BaseService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import com.mt.cms.dao.newsCategory.NewsCategoryDao;
+import com.mt.cms.dao.publisher.PublisherDao;
 import com.mt.cms.entity.newsArticles.NewsArticles;
 import com.mt.cms.service.newsArticles.NewsArticlesService;
+import com.mt.common.core.exception.BusinessException;
+import com.mt.common.core.web.BaseService;
+import com.mt.common.core.web.base.BaseEntity;
+import com.mt.common.core.web.base.PageDTO;
+import com.mt.common.core.web.base.PageResultDTO;
+import com.mt.common.system.entity.Attachment;
+import com.mt.common.system.mapper.AttachmentDao;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import javax.annotation.Resource;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 @Service
 @Transactional
@@ -31,6 +32,14 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 
 	@Autowired
 	private NewsArticlesDao newsArticlesDao;
+	@Autowired
+	private NewsCategoryDao newsCategoryDao;
+
+	@Autowired
+	private AttachmentDao attachmentDao;
+
+	@Autowired
+	private PublisherDao publisherDao;
 
 	@Resource
 	private RedisTemplate<String, List<NewsArticles>> redisTemplate;
@@ -38,6 +47,11 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 	@Autowired
 	StringRedisTemplate stringRedisTemplate;
 
+	@Override
+	public List<NewsArticles> findAllNewsArticlessMy(){
+		List<NewsArticles> newsArticlesDTOS = this.newsArticlesDao.findNewsArticlessMy();
+	return newsArticlesDTOS;
+	}
 	/**
 	 * 根据分页参数查询新闻文章集合
 	 *
@@ -46,10 +60,28 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 	@Override
 	public PageResultDTO findNewsArticless(PageDTO pageDTO){
         pageDTO.setStartIndex((pageDTO.getCurrentPage()-1)*pageDTO.getPageSize());
-		//TODO:请在此校验参数的合法性
-		this.validateFindNewsArticless(pageDTO);
+
+//		this.validateFindNewsArticless(pageDTO);
 		List<NewsArticles> newsArticlesDTOS = this.newsArticlesDao.findNewsArticless(pageDTO);
 		Long totalCount = this.newsArticlesDao.findNewsArticlesTotalCount(pageDTO);
+
+		newsArticlesDTOS.stream().forEach(newsArticles -> {
+			if(Objects.nonNull(newsArticles.getCategoryId())) {
+				String categoryName = newsCategoryDao.findNewsCategorysWithNameById(Long.valueOf(newsArticles.getCategoryId())).getName();
+//				String publisherName = publisherDao.findPublisher(newsArticles.getPublisherNameId()).getName();
+//				newsArticles.setPublisherNameName(publisherName);
+				newsArticles.setCategoryName(categoryName);
+			}
+			if(Objects.isNull(newsArticles.getThumbnail())){
+				Attachment attachment = attachmentDao.findAllAttachmentsWithAssociate(newsArticles.getEid(),"newsArticles");
+				String imgUrl;
+				if(attachment != null ){
+					imgUrl = attachment.getAttachmentAddr();
+					System.out.println("imgUrl------------" + imgUrl);
+					newsArticles.setThumbnail(imgUrl);
+				}
+			}
+		});
 
 		PageResultDTO pageResultDTO = new PageResultDTO();
 		pageResultDTO.setTotalCount(totalCount);
@@ -208,7 +240,7 @@ public class NewsArticlesServiceBean extends BaseService implements NewsArticles
 
 	private void validateFindNewsArticless(PageDTO pageDTO) {
 	//TODO:请使用下面方法添加数据过滤条件
-	//		pageDTO.addFilter("creatorId",this.getLoginUserId());
+//			pageDTO.addFilter("creatorId",this.getLoginUserId());
 	//TODO:请完善数据校验规则和数据权限判断，如果有问题请抛出异常，参看下面validateUpdateNewsArticles()写法
 	}
 

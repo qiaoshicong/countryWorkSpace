@@ -6,13 +6,12 @@
         <template #form>
           <a-form
             :model="where"
-            :label-col="{md: {span: 4}, sm: {span: 24}}"
-            :wrapper-col="{md: {span: 20}, sm: {span: 24}}">
+            :label-col="{md: {span: 6}, sm: {span: 24}}"
+            :wrapper-col="{md: {span: 16}, sm: {span: 20}}">
             <a-row>
 
 
-              <a-col :lg="6" :md="12" :sm="24"
-                     :xs="24">
+              <a-col :md="6">
                 <a-form-item label="新闻标题:" name="title">
                   <a-input
                     v-model:value="where.title"
@@ -24,21 +23,19 @@
                 </a-form-item>
               </a-col>
 
-              <a-col :lg="6" :md="12" :sm="24"
-                     :xs="24">
-                <a-form-item label="新闻概要:" name="summary">
+              <a-col  :md="6" >
+                <a-form-item label="作者姓名:" name="publisherName">
                   <a-input
-                    v-model:value="where.summary"
+                    v-model:value="where.publisherNameName"
                     :maxlength="255"
-                    placeholder="请输入新闻概要"
+                    placeholder="请输入作者姓名"
                     allow-clear
                     class="ele-fluid"
                   />
                 </a-form-item>
               </a-col>
 
-              <a-col :lg="6" :md="12" :sm="24"
-                     :xs="24">
+              <a-col :md="6">
                 <a-form-item label="新闻内容:" name="context">
                   <a-input
                     v-model:value="where.context"
@@ -182,8 +179,6 @@
           <a-space>
             <a @click="editEvent(row)">修改</a>
             <a-divider type="vertical"/>
-            <a class="ele-text-success" @click="editEvent2(row.eid)">修改独立页</a>
-            <a-divider type="vertical"/>
             <a class="ele-text-warning" @click="viewEvent(row)">查看</a>
             <a-divider type="vertical"/>
             <a-popconfirm
@@ -194,11 +189,14 @@
           </a-space>
         </template>
 
+<!--        渲染图片    -->
+          <template #img="{ row }">
+            <a-space>
+<!--              <a-tag color="orange"><UserOutlined /> {{ row.thumbnail }}</a-tag>-->
+              <img :src= "row.thumbnail"  />
+            </a-space>
+          </template>
 
-        <!--TODO:自定义列模板-->
-        <template #dddd="{  }">
-          <a href="http://showdoc.cqcflq.com/">文档地址</a>
-        </template>
 
         <template #ycs>
           <a-space>
@@ -208,26 +206,12 @@
               </template>
               <span>新建弹窗</span>
             </a-button>
-            <a-button type="primary" @click="addEvent2()">
-              <template #icon>
-                <plus-outlined/>
-              </template>
-              <span>新建独立页</span>
-            </a-button>
-            <a-button type="danger" @click="batchDeleteEvent()">
-              <template #icon>
-                <delete-outlined/>
-              </template>
-              <span>批量删除</span>
-            </a-button>
-            <a-button @click="gridOptions.sortConfig.multiple=!gridOptions.sortConfig.multiple">
-              <template #icon>
-                <upload-outlined/>
-              </template>
-              <span>{{ gridOptions.sortConfig.multiple === false ? '单' : '多' }}字段排序</span>
-            </a-button>
+
           </a-space>
         </template>
+
+
+
       </vxe-grid>
 
       <!--编辑弹窗-->
@@ -272,7 +256,7 @@
 <script>
 import {defineComponent, reactive, ref, toRefs, provide} from 'vue'//, Ref
 import {VXETable} from 'vxe-table'//, VxeGridInstance, VxeGridProps
-import XEAjax from 'xe-ajax'
+// import XEAjax from 'xe-ajax'
 import {NewsArticlesService} from "@/views/cms/newsArticles/newsArticles/newsArticlesService";
 import NewsArticlesEdit
   from "@/views/cms/newsArticles/newsArticles/newsArticles-edit";
@@ -280,11 +264,10 @@ import NewsArticlesDetail
   from "@/views/cms/newsArticles/newsArticles/newsArticles-detail";
 import {
   PlusOutlined,
-  DeleteOutlined,
   DownOutlined,
   UpOutlined,
 } from '@ant-design/icons-vue';
-import {useRouter} from "vue-router";
+// import {useRouter} from "vue-router";
 
 import MEntitySelect from "@/components/MEntity/entitySelect";
 
@@ -293,13 +276,12 @@ export default defineComponent({
     NewsArticlesEdit,
     NewsArticlesDetail,
     DownOutlined,
-    DeleteOutlined,
     PlusOutlined,
     UpOutlined,
     MEntitySelect,
   },
   setup() {
-    const router = useRouter();
+    // const router = useRouter();
     const newsArticlesGrid = ref({})// as VxeGridInstance
     // 搜索表单是否展开
     let searchExpand = ref(false)
@@ -312,7 +294,7 @@ export default defineComponent({
       viewModalShowing: false,
       editModalForEdit: false,
       addModalForEdit: false,
-      tableRefresh:function (){
+      tableRefresh: function () {
         reload()
       }
     })
@@ -335,15 +317,15 @@ export default defineComponent({
       formData: {},//自定义的
       detailData: [],
       startIndex: startIndex,
-      printConfig: {
-        columns: [
-          {field: 'name'},
-          {field: 'email'},
-          {field: 'nickname'},
-          {field: 'age'},
-          {field: 'amount'}
-        ]
-      },
+      // printConfig: {
+      //   columns: [
+      //     {field: 'name'},
+      //     {field: 'email'},
+      //     {field: 'nickname'},
+      //     {field: 'age'},
+      //     {field: 'amount'}
+      //   ]
+      // },
       /*TODO:排序配置 */
       sortConfig: {
         trigger: 'cell',
@@ -369,9 +351,9 @@ export default defineComponent({
       toolbarConfig: {
         slots: {buttons: 'ycs'},
         refresh: true,
-        import: true,
-        export: true,
-        print: true,
+        // import: true,
+        // export: true,
+        // print: true,
         zoom: true,
         custom: true
       },
@@ -428,7 +410,7 @@ export default defineComponent({
           sortable: true
         },
         {
-          field: 'publisherNameId',
+          field: 'publisherNameName',
           title: '作者姓名',
           sortable: true
         },
@@ -438,15 +420,21 @@ export default defineComponent({
           sortable: true
         },
         {
-          field: 'categoryId',
+          field: 'categoryName',
           title: '新闻类别id',
           sortable: true
         },
         {
           field: 'thumbnail',
           title: '新闻缩略图',
-          sortable: true
+          sortable: true,
+          slots: {default: 'img'},
         },
+        // {
+        //   field: 'createDateTime',
+        //   title: '发布时间',
+        //   sortable: true
+        // },
         // {
         //   field: 'comment',
         //   title: '评论数',
@@ -465,69 +453,69 @@ export default defineComponent({
 
         {title: '操作', width: 250, slots: {default: 'operate'}}
       ],
-      /*TODO:导入配置*/
-      importConfig: {
-        remote: true,
-        types: ['xlsx'],
-        modes: ['insert'],
-        // 自定义服务端导入
-        importMethod({file}) {
-          const $grid = newsArticlesGrid.value
-          const formBody = new FormData()
-          formBody.append('file', file)
-          return XEAjax.post('https://api.xuliangzhan.com:10443/demo/api/pub/import', formBody).then(data => {
-            VXETable.modal.message({content: `成功导入 ${data.result.insertRows} 条记录！`, status: 'success'})
-            // 导入完成，刷新表格
-            $grid.commitProxy('query')
-          }).catch(() => {
-            VXETable.modal.message({content: '导入失败，请检查数据是否正确！', status: 'error'})
-          })
-        }
-      },
-      /*TODO:导出配置*/
-      exportConfig: {
-        remote: true,
-        types: ['xlsx', 'csv', 'html', 'txt', 'pdf'],
-        modes: ['current', 'selected', 'all'],
-        // 自定义服务端导出
-        exportMethod({options}) {
-          const $grid = newsArticlesGrid.value
-          const proxyInfo = $grid.getProxyInfo()
-          const queryParams = $grid.queryParams;
-          // 传给服务端的参数
-          const body = {
-            ...queryParams,
-            filename: options.filename,
-            sheetName: options.sheetName,
-            isHeader: options.isHeader,
-            original1: options.original,
-            mode: options.mode,
-            pager: proxyInfo ? proxyInfo.pager : null,
-            ids: options.mode === 'selected' ? options.data.map((item) => item.id) : [],
-            fields: '%7B%22field%22:%22nickname%22,%22title%22:%22Nickname%22%7D&fields[]=%7B%22field%22:%22sex%22ge%22,%22title%22:%22Age%22%7D&fimount%22,%22title%22:%22Amount%22%7D&fields[]=%7B%22field'
-          }
-
-          // 开始服务端导出
-          return NewsArticlesService.findNewsArticlessForExport(body).then(data => {
-            VXETable.modal.message({content: `成功${data}`, status: 'error'});
-            // if (data.id) {
-            // VXETable.modal.message({ content: '导出成功，开始下载', status: 'success' })
-            // // 读取路径，请求文件
-            // fetch(`https://api.xuliangzhan.com:10443/demo/api/pub/export/download/\${data.id}`).then(response => {
-            //   response.blob().then(blob => {
-            //     // 开始下载
-            //     VXETable.saveFile({ filename: '导出数据', type: 'xlsx', content: blob })
-            //   })
-            // })
-            // }
-          }).catch(error => {
-            VXETable.modal.message({content: `导出失败，原因是：${error.message}`, status: 'error'});
-
-          })
-        }
-
-
-      },
+      // /*TODO:导入配置*/
+      // importConfig: {
+      //   remote: true,
+      //   types: ['xlsx'],
+      //   modes: ['insert'],
+      //   // 自定义服务端导入
+      //   importMethod({file}) {
+      //     const $grid = newsArticlesGrid.value
+      //     const formBody = new FormData()
+      //     formBody.append('file', file)
+      //     return XEAjax.post('https://api.xuliangzhan.com:10443/demo/api/pub/import', formBody).then(data => {
+      //       VXETable.modal.message({content: `成功导入 ${data.result.insertRows} 条记录！`, status: 'success'})
+      //       // 导入完成，刷新表格
+      //       $grid.commitProxy('query')
+      //     }).catch(() => {
+      //       VXETable.modal.message({content: '导入失败，请检查数据是否正确！', status: 'error'})
+      //     })
+      //   }
+      // },
+      // /*TODO:导出配置*/
+      // exportConfig: {
+      //   remote: true,
+      //   types: ['xlsx', 'csv', 'html', 'txt', 'pdf'],
+      //   modes: ['current', 'selected', 'all'],
+      //   // 自定义服务端导出
+      //   exportMethod({options}) {
+      //     const $grid = newsArticlesGrid.value
+      //     const proxyInfo = $grid.getProxyInfo()
+      //     const queryParams = $grid.queryParams;
+      //     // 传给服务端的参数
+      //     const body = {
+      //       ...queryParams,
+      //       filename: options.filename,
+      //       sheetName: options.sheetName,
+      //       isHeader: options.isHeader,
+      //       original1: options.original,
+      //       mode: options.mode,
+      //       pager: proxyInfo ? proxyInfo.pager : null,
+      //       ids: options.mode === 'selected' ? options.data.map((item) => item.id) : [],
+      //       fields: '%7B%22field%22:%22nickname%22,%22title%22:%22Nickname%22%7D&fields[]=%7B%22field%22:%22sex%22ge%22,%22title%22:%22Age%22%7D&fimount%22,%22title%22:%22Amount%22%7D&fields[]=%7B%22field'
+      //     }
+      //
+      //     // 开始服务端导出
+      //     return NewsArticlesService.findNewsArticlessForExport(body).then(data => {
+      //       VXETable.modal.message({content: `成功${data}`, status: 'error'});
+      //       // if (data.id) {
+      //       // VXETable.modal.message({ content: '导出成功，开始下载', status: 'success' })
+      //       // // 读取路径，请求文件
+      //       // fetch(`https://api.xuliangzhan.com:10443/demo/api/pub/export/download/\${data.id}`).then(response => {
+      //       //   response.blob().then(blob => {
+      //       //     // 开始下载
+      //       //     VXETable.saveFile({ filename: '导出数据', type: 'xlsx', content: blob })
+      //       //   })
+      //       // })
+      //       // }
+      //     }).catch(error => {
+      //       VXETable.modal.message({content: `导出失败，原因是：${error.message}`, status: 'error'});
+      //
+      //     })
+      //   }
+      //
+      //
+      // },
       /*TODO:复选框配置*/
       checkboxConfig: {
         labelField: 'eid',
@@ -536,18 +524,18 @@ export default defineComponent({
         range: true
       },
       /*TODO:编辑验证*/
-      editRules: {
-        name: [
-          {required: true, message: 'app.body.valid.rName'},
-          {min: 3, max: 50, message: '名称长度在 3 到 50 个字符'}
-        ],
-        email: [
-          {required: true, message: '邮件必须填写'}
-        ],
-        role: [
-          {required: true, message: '角色必须填写'}
-        ]
-      },
+      // editRules: {
+      //   name: [
+      //     {required: true, message: 'app.body.valid.rName'},
+      //     {min: 3, max: 50, message: '名称长度在 3 到 50 个字符'}
+      //   ],
+      //   email: [
+      //     {required: true, message: '邮件必须填写'}
+      //   ],
+      //   role: [
+      //     {required: true, message: '角色必须填写'}
+      //   ]
+      // },
       editConfig: {
         trigger: 'click',
         mode: 'row',
@@ -564,11 +552,11 @@ export default defineComponent({
       newsArticlesListApp.addModalForEdit = true;
       gridOptions.showEditTitle = "新建";
     }
-
-    /*TODO:新建独立页*/
-    const addEvent2 = () => {
-      router.push(`/cms/newsArticles/newsArticles/newsArticles-add`);
-    }
+    //
+    // /*TODO:新建独立页*/
+    // const addEvent2 = () => {
+    //   router.push(`/cms/newsArticles/newsArticles/newsArticles-add`);
+    // }
     /*TODO:编辑事件*/
     const editEvent = (row) => {
       newsArticlesListApp.editModalShowing = true
@@ -576,10 +564,10 @@ export default defineComponent({
       newsArticlesListApp.editModalForEdit = true;
       gridOptions.showEditTitle = "编辑";
     }
-    /*TODO:编辑独立页*/
-    const editEvent2 = (eid) => {
-      router.push(`/cms/newsArticles/newsArticles/newsArticles-edit/${eid}`);
-    }
+    // /*TODO:编辑独立页*/
+    // const editEvent2 = (eid) => {
+    //   router.push(`/cms/newsArticles/newsArticles/newsArticles-edit/${eid}`);
+    // }
 
     /*TODO:编辑关闭事件*/
     const editEventClose = () => {
@@ -598,6 +586,7 @@ export default defineComponent({
     const deleteEvent = (row) => {
       NewsArticlesService.deleteNewsArticles(row.eid).then(() => {
         VXETable.modal.message({content: '操作成功', status: 'success'})
+        setTimeout(reload,1000)
       }).catch(error => {
         VXETable.modal.message({content: `系统错误，原因是：${error.message}`, status: 'error'});
       })
@@ -632,8 +621,8 @@ export default defineComponent({
       editEventClose,
       deleteEvent,
       batchDeleteEvent,
-      editEvent2,
-      addEvent2,
+      // editEvent2,
+      // addEvent2,
       where,
       reload,
       reset,
