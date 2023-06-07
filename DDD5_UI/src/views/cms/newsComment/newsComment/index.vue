@@ -110,14 +110,7 @@
                             <span>新建弹窗</span>
                         </a-button>
 
-                                                <a-button type="danger" @click="batchDeleteEvent()">
-                            <template #icon>
-                                <delete-outlined/>
-                            </template>
-                            <span>批量删除</span>
-                        </a-button>
-
-                    </a-space>
+                                       </a-space>
                 </template>
             </vxe-grid>
 
@@ -170,7 +163,7 @@
         from "@/views/cms/newsComment/newsComment/newsComment-detail";
     import {
         PlusOutlined,
-        DeleteOutlined,
+
 
     } from '@ant-design/icons-vue';
 
@@ -182,7 +175,6 @@
                 NewsCommentEdit,
                 NewsCommentDetail,
 
-            DeleteOutlined,
             PlusOutlined,
                                                                                         MEntitySelect,
                     },
@@ -235,7 +227,7 @@
                 customConfig: {
                     storage: true
                 },
-                /*T过滤器配置*/
+                /*过滤器配置*/
                 filterConfig: {
                     remote: true
                 },
@@ -375,11 +367,6 @@
                     VXETable.modal.message({content: `系统错误，原因是：${error.message}`, status: 'error'});
                 })
             }
-
-            /*批量删除*/
-            const batchDeleteEvent = () => {
-                VXETable.modal.message({content: '点了批量删除', status: 'success'})
-            }
             /*条件查询提交*/
             const reload = () => {
                 const $grid = newsCommentGrid.value
@@ -404,7 +391,6 @@
                 viewEvent,
                 editEventClose,
                 deleteEvent,
-                batchDeleteEvent,
                                where,
                 reload,
                 reset,

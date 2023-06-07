@@ -83,12 +83,7 @@
                             </template>
                             <span>新建弹窗</span>
                         </a-button>
-                        <a-button type="danger" @click="batchDeleteEvent()">
-                            <template #icon>
-                                <delete-outlined/>
-                            </template>
-                            <span>批量删除</span>
-                        </a-button>
+
 
                     </a-space>
                 </template>
@@ -144,7 +139,6 @@
         from "@/views/cms/newsCategory/newsCategory/newsCategory-detail";
     import {
         PlusOutlined,
-        DeleteOutlined,
         DownOutlined,
         UpOutlined,
     } from '@ant-design/icons-vue';
@@ -157,7 +151,7 @@
                 NewsCategoryDetail,
           // eslint-disable-next-line vue/no-unused-components
             DownOutlined,
-            DeleteOutlined,
+
             PlusOutlined,
           // eslint-disable-next-line vue/no-unused-components
             UpOutlined,
@@ -335,10 +329,7 @@
                 })
             }
 
-            /*批量删除*/
-            const batchDeleteEvent = () => {
-                VXETable.modal.message({content: '点了批量删除', status: 'success'})
-            }
+
             //条件查询提交
             const reload = () => {
                 const $grid = newsCategoryGrid.value
@@ -365,7 +356,7 @@
                 viewEvent,
                 editEventClose,
                 deleteEvent,
-                batchDeleteEvent,
+
                               where,
                 reload,
                 reset,
