@@ -47,5 +47,9 @@ onMounted,
 </script>
 
 <style scoped>
+.box{
 
+  width: 850px;
+  margin: 0 auto;
+}
 </style>
