@@ -38,7 +38,7 @@
                 :default-value="newsArticlesModalApp.newsArticles.publisherNameName"
                 v-model:value="newsArticlesModalApp.newsArticles.publisherNameId"
                 placeholder="请选择作者姓名"
-                module="newsArticles"
+                module="publisher"
                 entity="Publisher"
                 class="ele-fluid"
               />
@@ -58,20 +58,51 @@
             </a-form-item>
           </a-col>
 
-<!--          <a-col :lg="6" :md="12" :sm="24" :xs="24">-->
-<!--            <a-form-item label="新闻类别id:" name="categoryId">-->
-<!--              <a-input-number-->
-<!--                v-model:value="newsArticlesModalApp.newsArticles.categoryId"-->
-<!--                placeholder="请输入新闻类别id"-->
-<!--                :min="0"-->
-<!--                :step="1"-->
-<!--                class="ele-fluid"-->
-<!--              ></a-input-number>-->
-<!--            </a-form-item>-->
-<!--          </a-col>-->
-
           <a-col :lg="10" :md="12" :sm="24" :xs="24">
             <a-form-item label="新闻缩略图:" name="thumbnail"  prop="imageUrl">
+<!--              sdfghjmh-->
+<!--              <a-upload-->
+<!--                multiple-->
+<!--                :remove="handleRemove"-->
+<!--                :file-list="fileList"-->
+<!--                :before-upload="beforeUpload"-->
+<!--              >-->
+<!--                <a-button>-->
+<!--                  <upload-outlined></upload-outlined>-->
+<!--                  选择文件-->
+<!--                </a-button>-->
+<!--              </a-upload>-->
+
+              <a-form-item label="上传图片:" :label-col="{span:6}" :wrapper-col="{span:18}" style="color: red;">
+                <m-attachment
+                  :associate-form-id=" newsArticlesListApp.currentId"
+                  associate-form-name="newsArticles"
+                  v-on:fileList="fileListFromParent"
+                  :operator-type="operatorType"
+                  ref="attachment"
+                />
+<!--                <a-p class="theTip">（只能上传一张图片且大小不超过30M）</a-p>-->
+              </a-form-item>
+<!---->
+<!--              <img v-if="newsArticlesModalApp.isPicture" :src="newsArticlesModalApp.phone_tip_url" class="avatar"-->
+<!--                   @click="look">-->
+<!--              <a-upload-->
+<!--                :beforeUpload="beforeFileUpload"-->
+<!--                :defaultFileList="defaultFileList"-->
+<!--                :headers="headers"-->
+<!--                :multiple="true"-->
+<!--                :remove="handleFileRemove"-->
+<!--                @change="handleChange"-->
+<!--                @preview="handleImagePreview"-->
+<!--                :action="uploadUrl"-->
+<!--                style="width: 60%"-->
+
+<!--              >-->
+<!--                <a-button>-->
+<!--                  <a-icon type="upload"/>-->
+<!--                  上传-->
+<!--                </a-button>-->
+<!--              </a-upload>-->
 <!--              <a-upload-->
 <!--                v-model:file-list="fileList"-->
 <!--                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"-->
@@ -126,41 +157,41 @@
           </a-col>
         </a-row>
 
-          <a-row style="margin-bottom: 20px">
-            <a-col :span="4">
-              <div class="example-side">
-                demo2:图片上传
-              </div>
-            </a-col>
-            <a-col :span="8">
-              <div class="example-side">
-                <!-----------------------------------------------------------------demo2---start-->
-                <a-upload
-                  :beforeUpload="beforeImageUpload"
-                  :defaultFileList="defaultImageList"
-                  :headers="headers"
-                  :remove="handleImageRemove"
-                  @change="handleImageChange"
-                  @preview="handleImagePreview"
-                  action="/api/storage/upload"
-                  listType="picture-card"
-                  style="width: 60%"
-                >
-                  <div v-if="defaultImageList.length < 2">
-                    <a-icon :type="imageLoading ? 'loading' : 'plus'"/>
-                    <div class="ant-upload-text">上传</div>
-                  </div>
-                </a-upload>
-                <a-modal :footer="null" :visible="previewVisible" @cancel="handleImageCancel">
-                  <img :src="previewImage" alt="example" style="width: 100%"/>
-                </a-modal>
-                <!-----------------------------------------------------------------demo2---end-->
-              </div>
-            </a-col>
-            <a-col :span="12" class="example-side-row">
-              {{ defaultImageList }}
-            </a-col>
-          </a-row>
+<!--          <a-row style="margin-bottom: 20px">-->
+<!--            <a-col :span="4">-->
+<!--              <div class="example-side">-->
+<!--                demo2:图片上传-->
+<!--              </div>-->
+<!--            </a-col>-->
+<!--            <a-col :span="8">-->
+<!--              <div class="example-side">-->
+<!--                &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;demo2-&#45;&#45;start&ndash;&gt;-->
+<!--                <a-upload-->
+<!--                  :beforeUpload="beforeImageUpload"-->
+<!--                  :defaultFileList="defaultImageList"-->
+<!--                  :headers="headers"-->
+<!--                  :remove="handleImageRemove"-->
+<!--                  @change="handleImageChange"-->
+<!--                  @preview="handleImagePreview"-->
+<!--                  action="/api/storage/upload"-->
+<!--                  listType="picture-card"-->
+<!--                  style="width: 60%"-->
+<!--                >-->
+<!--                  <div v-if="defaultImageList.length < 2">-->
+<!--                    <a-icon :type="imageLoading ? 'loading' : 'plus'"/>-->
+<!--                    <div class="ant-upload-text">上传</div>-->
+<!--                  </div>-->
+<!--                </a-upload>-->
+<!--                <a-modal :footer="null" :visible="previewVisible" @cancel="handleImageCancel">-->
+<!--                  <img :src="previewImage" alt="example" style="width: 100%"/>-->
+<!--                </a-modal>-->
+<!--                &lt;!&ndash;-&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;&#45;demo2-&#45;&#45;end&ndash;&gt;-->
+<!--              </div>-->
+<!--            </a-col>-->
+<!--            <a-col :span="12" class="example-side-row">-->
+<!--              {{ defaultImageList }}-->
+<!--            </a-col>-->
+<!--          </a-row>-->
 
       <a-row>
 
@@ -211,34 +242,22 @@
 
 
 </div>
-  sdfghjmh
-  <a-upload
-    :beforeUpload="beforeFileUpload"
-  :defaultFileList="defaultFileList"
-  :headers="headers"
-  :multiple="true"
-  :remove="handleFileRemove"
-  @change="handleChange"
-  action="/api/storage/upload"
-  style="width: 60%"
-  >
-  <a-button>
-    <a-icon type="upload"/>
-    上传
-  </a-button>
-  </a-upload>
+
+
 </template>
 
 <script >
-import {defineComponent, inject, reactive, onMounted} from 'vue'
+import {defineComponent, inject, reactive, onMounted,ref} from 'vue'
 import {useRoute, useRouter} from "vue-router"
 import {NewsArticlesService} from "@/views/cms/newsArticles/newsArticles/newsArticlesService";
+import uploadAttachmentService from "@/components/MFileUpload/attachmentService.js";
 import {VXETable} from 'vxe-table'
 import {useStore} from "vuex";
 import regions from 'ele-admin-pro/packages/regions.js';
 
-
+// import {toRaw} from '@vue/reactivity'
 import MEntitySelect from "@/components/MEntity/entitySelect";
+// import {message} from "ant-design-vue";
 
 export default defineComponent({
   components: {
@@ -253,13 +272,13 @@ export default defineComponent({
     let routeId = route.params.id;
     let newsArticlesListApp = inject('newsArticlesListApp', reactive({}));
 
-    // const uploadUrl = ref("http://localhost:8081/api/file/upload?token=" + setting.takeToken())
-
     const newsArticlesModalApp = reactive({
       id: null,
       newsArticles: {},
       isEdit: false,
       display: false,
+      isPicture: false,
+      phone_tip_url: '',
 
     });
     newsArticlesModalApp.rules = {
@@ -402,27 +421,31 @@ export default defineComponent({
     const onSubmit = (data) => {
       // debugger;
       //当为数组时用逗号连接
+
       if (data.eid) {
+        //保存文件
+        saveFile(data.eid)
         //修改
         NewsArticlesService.updateNewsArticles(data).then((res) => {
           console.log(res);
           VXETable.modal.message({content: '操作成功', status: 'success'});
-          setTimeout(onBack, 3000);
+          setTimeout(onBack, 1000);
         }).catch(error => {
           VXETable.modal.message({content: `系统错误，原因是：${error.message}`, status: 'error'});
         })
       } else {
         //新增
-        let _this = this;
-        _this.ruleForm.imageUrl =sessionStorage.getItem("imgUrl")
         NewsArticlesService.saveNewsArticles(data).then((res) => {
           console.log(res);
+          saveFile(res.data.eid)
           VXETable.modal.message({content: '操作成功', status: 'success'});
-          setTimeout(onBack, 3000);
+          setTimeout(onBack, 1000);
         }).catch(error => {
           VXETable.modal.message({content: `系统错误，原因是：${error.message}`, status: 'error'});
         })
+
       }
+
     }
 
     /*TODO:继续提交*/
@@ -433,27 +456,49 @@ export default defineComponent({
     /*TODO:返回列表*/
     const onBack = () => {
       router.push(`/cms/newsArticles/newsArticles`);
-      newsArticlesListApp.editModalShowing=false;
+      newsArticlesListApp.editModalShowing = false;
       newsArticlesListApp.tableRefresh();
       store.dispatch('user/tabRemove', route.fullPath);
 
     }
 
-    //图片回显
-    const handleAvatarSuccess = (res) => {
-      console.log(res)
-      this.imageUrl = res.data.final_fileName
-      sessionStorage.setItem("imgUrl",this.imageUrl)
-      alert(this.imageUrl)
+
+    //文件上传--------------
+    let operatorType = ref(); //操作类型（查看或者编辑）
+    // const attachment = ref(null);
+    let fileList = reactive([]);
+    //获取子组件传过来的fileList
+    let fileListFromParent = (files) => {
+      // childValue就是子组件传过来的值
+      fileList.values = files;
     }
-    //图片上传大小限制
-   const beforeAvatarUpload = (file) => {
-      const isLt2M = file.size / 1024 / 1024 < 2;
-      if (!isLt2M) {
-        this.$message.error('上传头像图片大小不能超过 2MB!');
+
+    //点击上传
+    const saveFile = (entityEid) => {
+      console.log("图片上传")
+      if (fileList.values.length !== 0) {
+        let formData = new FormData();
+        //表单名--对应实体表名
+        let formDto = {associateFormId: entityEid, associateFormName: "newsArticles"};
+        var fileUploadDto = JSON.stringify(formDto)
+        formData.append("fileUploadDto", new Blob([fileUploadDto], {type: "application/json"}));
+        fileList.values.forEach(file => {
+          formData.append('files', file)
+        });
+        uploadAttachmentService.saveFile(formData).then(() => {
+          fileList = [];
+          VXETable.modal.message({content: '图片上传成功', status: 'success'});
+          //更改上传组件的状态为编辑状态
+          operatorType = "edit";
+        }).catch((error) => {
+          VXETable.modal.message({content: '图片上传失败' + `系统错误，原因是：${error.message}`, status: 'error'});
+        });
+
       }
-      return isLt2M;
+
     }
+
+
     return {
       cityData,
       routeId,
@@ -462,8 +507,21 @@ export default defineComponent({
       onSubmit,
       continueSubmit,
       onBack,
-      handleAvatarSuccess,
-      beforeAvatarUpload
+      // handleAvatarSuccess,
+      // beforeAvatarUpload,
+      // handleChange,
+      // headers: {
+      //   authorization: 'authorization-text',
+      // },
+
+      // look,
+      // beforeUpload,
+      // handleRemove,
+      fileList,
+      saveFile,
+      operatorType,
+      fileListFromParent,
+
     }
 
   },

@@ -1,11 +1,11 @@
 package com.mt.cms.dao.newsCategory;
 
-import com.mt.common.core.web.base.PageDTO;
-import com.mt.common.core.web.base.PageResultDTO;
 import com.mt.cms.entity.newsCategory.NewsCategory;
+import com.mt.common.core.web.base.PageDTO;
 import org.apache.ibatis.annotations.Mapper;
-import org.springframework.stereotype.Component;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+
 import java.util.List;
 
 @Mapper
@@ -86,4 +86,6 @@ public interface NewsCategoryDao {
     * @param newsCategoryId ID
     */
     public Long deleteNewsCategory(@Param("newsCategoryId") Long newsCategoryId);
+
+   public NewsCategory findNewsCategorysWithNameById(Long categoryId);
 }

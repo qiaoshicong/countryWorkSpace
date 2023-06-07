@@ -5,7 +5,15 @@ import axios from 'axios';
  * 新闻文章
  */
 export class NewsArticlesService {
-    // 分页查询列表
+  static findAll () {
+    return axios({
+      url: '/cms/newsArticles/NewsArticles/findAll',
+      method: 'POST',
+    });
+  }
+
+
+  // 分页查询列表
     static findNewsArticless (queryParams) {
         return axios({
             url: '/cms/newsArticles/NewsArticles/findNewsArticless',

@@ -112,6 +112,10 @@ public class NewsArticlesController {
         return this.newsArticlesService.findNewsArticlessWithIdNameByName(newsArticlesName);
     }
 
+@PostMapping("/findAll")
+    public List<NewsArticles> findAllNewsArticlessMy(){
+        return this.newsArticlesService.findAllNewsArticlessMy();
+    }
 
     /**
      * 创建新的新闻文章

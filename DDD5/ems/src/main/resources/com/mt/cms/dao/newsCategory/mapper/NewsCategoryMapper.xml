@@ -203,6 +203,14 @@
         where eid = #{newsCategoryId}
     </select>
 
+    <!-- 查询指定的实体,只提取 Name -->
+    <select id="findNewsCategorysWithNameById" resultType="com.mt.cms.entity.newsCategory.NewsCategory" parameterType="java.lang.Long">
+        select
+            t0.name
+        from cms_news_category t0
+        where eid = #{newsCategoryId}
+    </select>
+
     <!--  根据Id查询 -->
     <select id="findNewsCategory" resultType="com.mt.cms.entity.newsCategory.NewsCategory" parameterType="java.lang.Long">
         select * from cms_news_category where eid = #{newsCategoryId}

@@ -117,4 +117,6 @@ public interface AttachmentDao {
     public Integer deleteUploadedFileByGroupName(@Param("formId")String formId, @Param("formName")String formName, @Param("groupName")String groupName);
 
     public List<Attachment> findAttachmentByFormIdAndFromName(@Param("formId") String formId,@Param("formName") String formName);
+
+    public Attachment findAllAttachmentsWithAssociate(Long associateId,String associateName );
 }

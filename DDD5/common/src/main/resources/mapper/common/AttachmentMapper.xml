@@ -435,6 +435,14 @@
         ORDER BY t0.Name
     </select>
 
+    <!-- 查询所有数据集合, dafhtygbijousv  -->
+    <select id="findAllAttachmentsWithAssociate" resultType="com.mt.common.system.entity.Attachment" >
+        select
+            *
+        from sys_attachment t0
+        where associate_form_id = #{associateId} and associate_form_name = #{associateName}
+    </select>
+
     <!-- 查询指定的实体,只提取ID 和 Name -->
     <select id="findAttachmentsWithIdNameById" resultType="com.mt.common.system.entity.Attachment" parameterType="java.lang.Long">
         select
