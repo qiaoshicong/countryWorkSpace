@@ -25,25 +25,9 @@ public interface NewsCategoryDao {
     */
     public List<NewsCategory> findAllNewsCategorys();
 
-    /**
-    * 查询所有新闻类别集合(只提取ID 和 Name)
-    *
-    */
-    public List<NewsCategory> findAllNewsCategorysWithIdName();
 
-    /**
-    * 根据名称查询新闻类别集合(只提取ID 和 Name)
-    *
-    * @param newsCategoryName 名称
-    */
-    public List<NewsCategory> findNewsCategorysWithIdNameByName(@Param("newsCategoryName") String newsCategoryName);
 
-    /**
-    * 根据ID查询指定的新闻类别(只提取ID 和 Name)
-    *
-    * @param newsCategoryId Id
-    */
-    public NewsCategory findNewsCategorysWithIdNameById(@Param(" newsCategoryId") Long newsCategoryId);
+
 
     /**
     * 根据分页参数查询新闻类别集合的数量
@@ -59,12 +43,6 @@ public interface NewsCategoryDao {
     */
     public NewsCategory findNewsCategory(@Param("newsCategoryId") Long newsCategoryId);
 
-    /**
-    * 根据ID查询指定的新闻类别(包含外键)
-    *
-    * @param newsCategoryId Id
-    */
-    public NewsCategory findNewsCategoryWithForeignName(@Param("newsCategoryId") Long newsCategoryId);
 
     /**
     * 新增新闻类别

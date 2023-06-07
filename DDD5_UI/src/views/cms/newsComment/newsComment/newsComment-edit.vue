@@ -22,7 +22,7 @@
                                                                             </a-form-item>
                                 </a-col>
 
-                                <a-col :lg="6" :md="12" :sm="24" :xs="24">
+                                <a-col :lg="12" :md="12" :sm="24" :xs="24">
                                     <a-form-item label="评论的文章id:" name="articleId">
                                                                                     <a-input-number
                                                     v-model:value="newsCommentModalApp.newsComment.articleId"
@@ -34,7 +34,7 @@
                                                                             </a-form-item>
                                 </a-col>
 
-                                <a-col :lg="6" :md="12" :sm="24" :xs="24">
+                                <a-col :lg="12" :md="12" :sm="24" :xs="24">
                                     <a-form-item label="创建者的id:" name="createIdId">
                                                                                     <m-entity-select
                                                                                                     :default-value="newsCommentModalApp.newsComment.createIdName"
@@ -47,7 +47,7 @@
                                                                             </a-form-item>
                                 </a-col>
 
-                                <a-col :lg="6" :md="12" :sm="24" :xs="24">
+                                <a-col :lg="12" :md="12" :sm="24" :xs="24">
                                     <a-form-item label="父评论id:" name="parentId">
                                                                                     <a-input-number
                                                     v-model:value="newsCommentModalApp.newsComment.parentId"
@@ -61,7 +61,7 @@
 
                     <a-col :md="12" :sm="24" :xs="24">
                         <a-form-item :wrapper-col="{md: {offset: 6}}" style="margin-bottom: -20px">
-                            <!--class="ele-pull-right"-->
+
                             <div v-if="newsCommentModalApp.display">
                                 <teleport to="#newsCommentEditModalFooter">
                                     <div>
@@ -73,28 +73,19 @@
                                                     @click="onSubmit(newsCommentModalApp.newsComment)"
                                                     :loading="loading">提交
                                             </a-button>
-                                            <!--<a-button v-if="!eid"
-                                                      type="dashed"
-                                                      @click="continueSubmit"
-                                                      :loading="loading">继续提交
-                                            </a-button>-->
                                         </a-space>
                                     </div>
                                 </teleport>
                             </div>
                             <div v-if="!newsCommentModalApp.display">
                                 <a-space size="middle">
-                                    <a-button @click="onBack()">返回列表</a-button>
+                                    <a-button @click="onBack()"></a-button>
                                     <a-button
                                             type="primary"
                                             @click="onSubmit(newsCommentModalApp.newsComment)"
                                             :loading="loading">提交
                                     </a-button>
-                                    <!--<a-button v-if="!eid"
-                                              type="dashed"
-                                              @click="continueSubmit"
-                                              :loading="loading">继续提交
-                                    </a-button>-->
+
                                 </a-space>
                             </div>
 
@@ -201,18 +192,15 @@
             const findNewsComment = (id) => {
                     NewsCommentService.findNewsCommentForView(id).then((res) => {
                         newsCommentModalApp.newsComment = res.data;
-                    //TODO:为编辑准备.
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                newsCommentModalApp.title = "编辑学生 " + newsCommentModalApp.newsComment.name;
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  newsCommentModalApp.title = "编辑学生 " + newsCommentModalApp.newsComment.name;
                 }).catch(error => {
                     VXETable.modal.message({content: `查找学生出错，原因是：${error.message}`, status: 'error'});
                 })
             }
 
-            /*TODO:提交 新增&编辑*/
+            /*提交 新增&编辑*/
             const onSubmit = (data) => {
-                // debugger;
-                //当为数组时用逗号连接
-                                                                                                                                                                                                                                                                                                                                                                                                                                            if (data.eid) {
+                                                                                                                                                                                                                                                                                                                                                                                                                                              if (data.eid) {
                     //修改
                         NewsCommentService.updateNewsComment(data).then((res) => {
                         console.log(res);
@@ -233,12 +221,8 @@
                 }
             }
 
-            /*TODO:继续提交*/
-            const continueSubmit = () => {
-                VXETable.modal.message({content: 'error 提示', status: 'error'});
-            }
 
-            /*TODO:返回列表*/
+            /*返回列表*/
             const onBack = () => {
                 router.push(`/cms/newsComment/newsComment`);
                 newsCommentListApp.editModalShowing=false;
@@ -252,7 +236,6 @@
                     newsCommentListApp,
                     newsCommentModalApp,
                 onSubmit,
-                continueSubmit,
                 onBack,
                                                                                                                                                                                                                                                                                                                                                                                                                                         }
 
