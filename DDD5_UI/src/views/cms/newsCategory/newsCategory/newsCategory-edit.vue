@@ -162,6 +162,8 @@
             /*TODO:返回列表*/
             const onBack = () => {
                 router.push(`/cms/newsCategory/newsCategory`);
+                newsCategoryListApp.editModalShowing=false;
+                newsCategoryListApp.tableRefresh();
                 store.dispatch('user/tabRemove', route.fullPath);
 
             }

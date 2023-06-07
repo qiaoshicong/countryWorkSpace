@@ -1,42 +1,50 @@
 <template>
-<h1>home</h1>
+<h1 class="hdtitle">易村行</h1>
   <div calss='box'>
     <!-- 首页上半部分 -->
-    <el-row type='flex' class='row-bg' justify='space-between'>
-      <div class='block marr10'>
-        <el-carousel height='450px' arrow='always' :interval='3000'>
-          <el-carousel-item v-for='(item, index) in imgList.img' :key='index'>
-            <div @click='gonew(item.id)' class='cursor' style='width:590px; height:450px'>
-              <!-- todo 10086 -->
-
-<!--              <img :src="'http://localhost:10086/' + item.thumbnail" alt='' style='width:100%; height:90%' />-->
-            </div>
-          </el-carousel-item>
-        </el-carousel>
+    <!-- 标题下图片 -->
+    <div class="head-image">
+      <div>
+        <el-image src="../assets/img/home.jpg"></el-image>
       </div>
-      <notice class='notice' />
-    </el-row>
-    <!-- 通知公告导航条 -->
-    <el-row type='flex' class='row-bg underline marb10' justify='space-between'>
-      <span class='color'><b>通知公告</b></span>
-      <span @click="goMore('通知公告')" class='liPointer'> 更多<i class='el-icon-d-arrow-right'></i> </span>
-    </el-row>
-    <!-- 通知公告新闻列表 -->
-    <div style='max-height:382px;overflow:hidden;'>
-      <ul>
-        <li class='lieBiao liPointer' :key='item.eid' v-for='item in noticeList.notice'>
-          <div class='time'>
-            {{ item.createDatetime }}
-<!--            {{ item.title }}-->
-          </div>
+    </div>
+    <div class="news">
+      <el-row type='flex' class='row-bg' justify='space-between'>
+        <div class='block marr10'>
+          <el-carousel height='450px' arrow='always' :interval='3000'>
+            <el-carousel-item v-for='(item, index) in imgList.img' :key='index'>
+              <div @click='gonew(item.id)' class='cursor' style='width:590px; height:450px'>
+                <!-- todo 10086 -->
 
-<!--          <div>{{ item.thumbnail }}</div>-->
-          <img :src="'http://localhost:8081/' + item.thumbnail" alt='' style='width:100%; height:90%' />-->
-          <div class='title' @click='toNoticeMsg(item.eid)'>
-            {{ item.title }}
-          </div>
-        </li>
-      </ul>
+                <!--              <img :src="'http://localhost:10086/' + item.thumbnail" alt='' style='width:100%; height:90%' />-->
+              </div>
+            </el-carousel-item>
+          </el-carousel>
+        </div>
+        <notice class='notice' />
+      </el-row>
+      <!-- 通知公告导航条 -->
+      <el-row type='flex' class='row-bg underline marb10' justify='space-between'>
+        <span class='color'><b>通知公告</b></span>
+        <span @click="goMore('通知公告')" class='liPointer'> 更多<i class='el-icon-d-arrow-right'></i> </span>
+      </el-row>
+      <!-- 通知公告新闻列表 -->
+      <div style='max-height:382px;overflow:hidden;'>
+        <ul>
+          <li class='lieBiao liPointer' :key='item.eid' v-for='item in noticeList.notice'>
+            <div class='time'>
+              {{ item.createDatetime }}
+              <!--            {{ item.title }}-->
+            </div>
+
+            <!--          <div>{{ item.thumbnail }}</div>-->
+            <img :src="'http://localhost:8081/' + item.thumbnail" alt='' style='width:100%; height:90%' />-->
+            <div class='title' @click='toNoticeMsg(item.eid)'>
+              {{ item.title }}
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
     <a-row>
       <a-col :span="24">
@@ -163,5 +171,22 @@ export default defineComponent({
   line-height: 50px;
 // background-color: rgb(179, 19, 19);
   padding: 0 0 0 10px;
+}
+.head-image{
+  float: left;
+  height: 480px;
+  width: 590px;
+  position: relative;
+  left: 70px;
+  background-image: url(~@/assets/img/home.jpeg);
+}
+.hdtitle{
+  font-size: 35px;
+  color: #f39408;
+  text-align: center;
+}
+.news{
+  float: left;
+  margin-left: 85px;
 }
 </style>

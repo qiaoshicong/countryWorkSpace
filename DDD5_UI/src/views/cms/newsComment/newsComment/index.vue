@@ -9,8 +9,8 @@
                             :label-col="{md: {span: 4}, sm: {span: 24}}"
                             :wrapper-col="{md: {span: 20}, sm: {span: 24}}">
                         <a-row>
-                            
-                                                                                                                                                                                                                                                                                                                            
+
+
                                         <a-col  :lg="6" :md="12" :sm="24"
                                                              :xs="24">
                                             <a-form-item label="内容:" name="content">
@@ -23,7 +23,7 @@
                                                     />
                                                                                             </a-form-item>
                                         </a-col>
-                                                                                                                                                                                                                                                    
+
                                         <a-col  :lg="6" :md="12" :sm="24"
                                                              :xs="24">
                                             <a-form-item label="评论的文章id:" name="articleId">
@@ -36,7 +36,7 @@
                                                     </a-input-number>
                                                                                             </a-form-item>
                                         </a-col>
-                                                                                                                                                                                                                                                    
+
                                         <a-col  :lg="6" :md="12" :sm="24"
                                                              :xs="24">
                                             <a-form-item label="创建者的id:" name="createIdId">
@@ -49,7 +49,7 @@
                                                     />
                                                                                             </a-form-item>
                                         </a-col>
-                                                                                                                                                                                                                                                    
+
                                         <a-col  v-if="searchExpand"  :lg="6" :md="12" :sm="24"
                                                              :xs="24">
                                             <a-form-item label="父评论id:" name="parentId">
@@ -62,7 +62,7 @@
                                                     </a-input-number>
                                                                                             </a-form-item>
                                         </a-col>
-                                                                                                                                                                                                                                                                                                                                                                                        
+
                             <a-col :lg="6" :md="12" :sm="24" :xs="24">
                                 <a-form-item class="ele-text-right" :wrapper-col="{span: 24}">
                                     <a-space>
@@ -197,9 +197,9 @@
         UpOutlined,
     } from '@ant-design/icons-vue';
     import {useRouter} from "vue-router";
-                                                                                                                                                                                                                                                        
+
                                                         import MEntitySelect from "@/components/MEntity/entitySelect";
-        
+
     export default defineComponent({
         components: {
                 NewsCommentEdit,
@@ -223,7 +223,10 @@
                 editModalShowing: false,
                 viewModalShowing: false,
                 editModalForEdit: false,
-                addModalForEdit: false
+                addModalForEdit: false,
+              tableRefresh:function (){
+                reload()
+              }
             })
             const gridOptions = reactive({
                 border: true,

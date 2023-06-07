@@ -1,26 +1,33 @@
 <template>
-  <h1>乡村教育</h1>
+  <h1 class="hdtitle">乡村教育</h1>
   <div calss='box'>
     <!-- 首页上半部分 -->
-
+    <!-- 标题下图片 -->
+    <div class="head-image">
+      <div>
+        <el-image src="../assets/img/bfzc.jpg"></el-image>
+      </div>
+    </div>
     <!-- 通知公告导航条 -->
-    <el-row type='flex' class='row-bg underline marb10' justify='space-between'>
-      <span class='color'><b>通知公告</b></span>
-      <span @click="goMore('通知公告')" class='liPointer'> 更多<i class='el-icon-d-arrow-right'></i> </span>
-    </el-row>
-    <!-- 通知公告新闻列表 -->
-    <div style='max-height:382px;overflow:hidden;'>
-      <ul>
-        <li class='lieBiao liPointer' :key='item.eid' v-for='item in noticeList.notice'>
-          <div class='time'>
-            {{ item.createDatetime }}
-            <!--            {{ item.title }}-->
-          </div>
-          <div class='title' @click='toNoticeMsg(item.eid)'>
-            {{ item.title }}
-          </div>
-        </li>
-      </ul>
+    <div class="news">
+      <el-row type='flex' class='row-bg underline marb10' justify='space-between'>
+        <span class='color'><b>通知公告</b></span>
+        <span @click="goMore('通知公告')" class='liPointer'> 更多<i class='el-icon-d-arrow-right'></i> </span>
+      </el-row>
+      <!-- 通知公告新闻列表 -->
+      <div style='max-height:382px;overflow:hidden;'>
+        <ul>
+          <li class='lieBiao liPointer' :key='item.eid' v-for='item in noticeList.notice'>
+            <div class='time'>
+              {{ item.createDatetime }}
+              <!--            {{ item.title }}-->
+            </div>
+            <div class='title' @click='toNoticeMsg(item.eid)'>
+              {{ item.title }}
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>
@@ -76,9 +83,27 @@ export default defineComponent({
       toNoticeMsg
     }
   }
-})
+}
+)
+
 </script>
 
 <style scoped>
-
+.hdtitle{
+  font-size: 35px;
+  color: #f39408;
+  text-align: center;
+}
+.head-image{
+  float: left;
+  height: 500px;
+  width: 590px;
+  position: relative;
+  left: 70px;
+  background-image: url(~@/assets/img/xcjy.jpeg);
+}
+.news{
+  float: left;
+  margin-left: 85px;
+}
 </style>

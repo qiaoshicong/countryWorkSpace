@@ -16,12 +16,13 @@
               <a-col :lg="12" :md="12" :sm="24" :xs="24">
                 <a-form-item label="用户名:" name="username">
                   <a-input
-                    placeholder="请输入5-20位用户名，必须包括数字和字母"
+                    placeholder="请输入用户名"
                     v-model:value="form.username"
                     :maxlength="250"
                   />
                 </a-form-item>
               </a-col>
+
               <a-col :lg="12" :md="12" :sm="24" :xs="24">
                 <a-form-item label="姓名:" name="name">
                   <a-input
